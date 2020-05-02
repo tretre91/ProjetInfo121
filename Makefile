@@ -8,6 +8,8 @@ CXX = g++
 # Les options du compilateur
 CXXFLAGS = -Wall -std=c++11 -g
 
+SFOPT = -lsfml-graphics -lsfml-window -lsfml-system
+
 # Les programmes principaux
 ###########################
 # On donne le fichier .cpp et la liste des fichiers .o qu'ils utilisent
@@ -16,6 +18,8 @@ projet: projet.cpp coord.o grille.o termite.o # Ã  complÃ©ter...
 testcoord: testcoord.cpp coord.o
 testgrille: testgrille.cpp grille.o coord.o
 testtermite: testtermite.cpp termite.o grille.o coord.o
+gui: gui.o termite.o grille.o coord.o
+	$(CXX) $(CXXFLAGS) gui.o termite.o grille.o coord.o -o gui $(SFOPT)
 # Ã  complÃ©ter...
 
 # Les diffÃ©rents composants
@@ -26,9 +30,10 @@ testtermite: testtermite.cpp termite.o grille.o coord.o
 coord.o: coord.cpp coord.hpp
 grille.o: grille.cpp grille.hpp coord.hpp
 termite.o: termite.cpp termite.hpp grille.hpp coord.hpp
-
+gui.o: gui.cpp termite.hpp grille.hpp coord.hpp
+	$(CXX) $(CXXFLAGS) -c $(dir $(realpath $(firstword $(MAKEFILE_LIST))))gui.cpp termite.hpp
 
 clean:
-	rm -f projet testgrille testcoord testtermite *.o
+	rm -f projet testgrille testcoord testtermite gui *.o
 # Attention dans la ligne ci-dessus il faut Ã©crire
 # un seul caractÃ¨re de tabulation et pas 8 espaces.
