@@ -2,15 +2,15 @@
 #include <cstdlib>
 
 struct Termite{
-	int numero;
-	Coord position;
-	Direction direction;
-	bool charge;
+    int numero;
+    Coord position;
+    Direction direction;
+    bool charge;
 };
 
 struct tabTermites{
-	Termite tab[2*TAILLE];
-	int taille;
+    Termite tab[(TAILLE*TAILLE)/10];
+    int taille;
 };
 
 /** Déclare un tableau de termites comme étant vide
