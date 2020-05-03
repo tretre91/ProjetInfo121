@@ -1,26 +1,12 @@
-#include <SFML/Graphics.hpp>
-#include <iostream>
+//les bibliothèques <SFML/Graphics.hpp>, <string> et <iostream> sont inclues dans "bouton.hpp"
 #include <cstdlib>
-#include <string>
+#include "bouton.hpp"
 #include "termite.hpp"
 using namespace std;
 
 const float DENSITE_TERMITE = 0.25;
 const float DENSITE_BRINDILLE = 0.15;
 const int NB_TEXTURES = 5;
-
-/** Permet de récuperer l'info sur le dossier de compilation
- * @return s le chemin vers le dossier où a eu lieu la compilation
- **/
-string wdir(){
-	string s = __FILE__;
-	for(int i = s.size()-1; i >= 0; i--)
-		if(s[i] == '/'){
-			s.erase(i+1, s.size());
-			break;
-		}
-	return s;
-}
 
 /** Permet de faire tourner un sprite de 90,180 ou 270°
  * @param s le sprite à modifier
@@ -123,24 +109,23 @@ int main(){
 	/* Chargement des textures */
 	sf::Texture tabTextures[NB_TEXTURES];
 	
-	// texture de termite droit
-	if(!tabTextures[0].loadFromFile(wdir()+"Images/termite_n.png")){
+	if(!tabTextures[0].loadFromFile(wdir()+"Ressources/termite_n.png")){ // texture de termite droit
 		cout << "Echec du chargement de la texture termite_droit" << endl;
 	}
-	// texture de termite penché (en diagonale)
-	if(!tabTextures[1].loadFromFile(wdir()+"Images/termite_no.png")){
+	
+	if(!tabTextures[1].loadFromFile(wdir()+"Ressources/termite_no.png")){ // texture de termite penché (en diagonale)
 		cout << "Echec du chargement de la texture termite_penche" << endl;
 	}
-	// texture de brindille
-	if(!tabTextures[2].loadFromFile(wdir()+"Images/brindille.png")){
+	
+	if(!tabTextures[2].loadFromFile(wdir()+"Ressources/brindille.png")){ // texture de brindille
 		cout << "Echec du chargement de la texture brindille" << endl;
 	}
-	// texture de termite droit qui porte une brindille
-	if(!tabTextures[3].loadFromFile(wdir()+"Images/termite_charge_n.png")){
+	
+	if(!tabTextures[3].loadFromFile(wdir()+"Ressources/termite_charge_n.png")){ // texture de termite droit qui porte une brindille
 		cout << "Echec du chargement de la texture termite_charge_droit" << endl;
 	}
-	// texture de termite penché qui porte une brindille
-	if(!tabTextures[5].loadFromFile(wdir()+"Images/termite_charge_no.png")){
+	
+	if(!tabTextures[5].loadFromFile(wdir()+"Ressources/termite_charge_no.png")){ // texture de termite penché qui porte une brindille
 		cout << "Echec du chargement de la texture termite_charge_penche" << endl;
 	}
 	/* Fin du chargement des textures */
@@ -164,12 +149,26 @@ int main(){
     tabVide(tabT);
     Grille g;
     initGrille(g, tabT);
-	// afficheGrille(g, tabT);
 	sf::Sprite grilleSprite[TAILLE][TAILLE];
 	copieGrille(g, tabT, tailleCase, grilleSprite, tabTextures);
 	
+	/* Génération des autres objets (bordures, déco, boutons ...) */
+	int tailleFenetre = tailleCase*TAILLE;
+	sf::Color const gris(130, 130, 130);
+	
+	sf::RectangleShape separateur(sf::Vector2f(5, tailleFenetre));
+	separateur.setFillColor(sf::Color::Black);
+	separateur.setPosition(tailleFenetre, 0);
+	
+	Bouton passe(sf::Vector2f(tailleFenetre+50, 50), sf::Vector2f(100, 50), gris);
+	passe.setText("Passe");
+	passe.setTextSize(30);
+	
+	Bouton bouton;
+	bouton.setPosition(tailleFenetre+50, 200);
+	
 	/* ctéation de la fenêtre */
-	sf::RenderWindow fenetre(sf::VideoMode(tailleCase*TAILLE, tailleCase*TAILLE), "simulation termites");
+	sf::RenderWindow fenetre(sf::VideoMode(tailleCase*TAILLE+205, tailleCase*TAILLE), "simulation termites");
 	fenetre.setVerticalSyncEnabled(false);
 	fenetre.setFramerateLimit(60);
 	
@@ -177,14 +176,27 @@ int main(){
 	while(fenetre.isOpen()){
 		sf::Event event;
 		while(fenetre.pollEvent(event)){
-			if(event.type == sf::Event::Closed)
-				fenetre.close();
+			switch(event.type){
+				case sf::Event::Closed:
+					fenetre.close();
+					break;
+				case sf::Event::MouseButtonPressed:
+					if(event.mouseButton.button == sf::Mouse::Left)
+						if(passe.contient(event.mouseButton.x, event.mouseButton.y))
+							bouton.setSize(100, 50);
+					break;
+				default: break;
+			}
 		}
 		fenetre.clear(sf::Color(217, 160, 48));
 		
 		for(int i = 0; i < TAILLE; i++)
 			for(int j = 0; j < TAILLE; j++)
 				fenetre.draw(grilleSprite[i][j]);
+		
+		fenetre.draw(separateur);
+		passe.dessiner(fenetre);
+		bouton.dessiner(fenetre);
 		
 		fenetre.display();
 	}
