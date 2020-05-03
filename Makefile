@@ -34,6 +34,6 @@ gui.o: gui.cpp termite.hpp grille.hpp coord.hpp
 	$(CXX) $(CXXFLAGS) -c $(dir $(realpath $(firstword $(MAKEFILE_LIST))))gui.cpp termite.hpp
 
 clean:
-	rm -f projet testgrille testcoord testtermite gui *.o
+	rm -f projet testgrille testcoord testtermite gui *.o *.gch
 # Attention dans la ligne ci-dessus il faut Ã©crire
 # un seul caractÃ¨re de tabulation et pas 8 espaces.
