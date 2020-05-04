@@ -65,13 +65,13 @@ Bouton::Bouton(sf::Vector2f const& position, sf::Vector2f const& size, sf::Color
 void Bouton::setColor(sf::Color const& color){
 	m_color = color;
 	m_base.setFillColor(color);
-	m_base.setOutlineColor(color + sf::Color(30,30,30));
+	m_base.setOutlineColor(color + sf::Color(60,60,60));
 }
 
 void Bouton::setColor(int const& r, int const& g, int const& b, int alpha = 255){
 	m_color = sf::Color(r, g, b, alpha);
 	m_base.setFillColor(m_color);
-	m_base.setOutlineColor(m_color + sf::Color(30,30,30));
+	m_base.setOutlineColor(m_color + sf::Color(60,60,60));
 }
 
 sf::Color Bouton::getColor() const{

@@ -88,6 +88,16 @@ void BoutonTexte::setTextSize(uint taille){
 	this->adaptText();
 }
 
+void BoutonTexte::setUnderline(bool underline){
+	m_text.setStyle(sf::Text::Underlined);
+	this->adaptText();
+}
+
+void BoutonTexte::setBold(bool bold){
+	m_text.setStyle(sf::Text::Bold);
+	this->adaptText();
+}
+
 sf::Text BoutonTexte::getText() const{
 	return m_text;
 }
@@ -106,11 +116,12 @@ void BoutonTexte::dessiner(sf::RenderWindow &window){
 /* Méthodes protégées */
 
 bool BoutonTexte::fitText() const{
-	return getSize().x <= m_text.getLocalBounds().width && getSize().y <= m_text.getLocalBounds().height;
+	return this->getSize().x >= m_text.getGlobalBounds().width && this->getSize().y >= m_text.getGlobalBounds().height;
 }
 
 void BoutonTexte::adaptText(){
-	m_base.setSize(sf::Vector2f(m_text.getLocalBounds().width, m_text.getLocalBounds().height));
+	this->setSize(sf::Vector2f(m_text.getGlobalBounds().width+10, m_text.getGlobalBounds().height+10));
+	cout << m_text.getStyle() << endl;
 	this->centerText();
 }
 

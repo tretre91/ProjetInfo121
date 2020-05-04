@@ -34,6 +34,11 @@ class BoutonTexte : public Bouton{
 		 * @param [in] font la nouvelle police à utiliser
 		 **/
 		void setFont(sf::Font const& font);
+		/** Permet de définir si la légende est soulignée
+		 * @param undetline un booléen qui indique si le texte doit être souligné
+		 **/
+		void setUnderline(bool underline);
+		void setBold(bool bold);
 		/** Permet d'obtenir le sf::Text correspondant à la légende du bouton
 		 * @return un sf::Text correspondant à celui du bouton
 		 **/
