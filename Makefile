@@ -46,6 +46,8 @@ clean:
 fullClean:
 	rm -f projet testgrille testcoord testtermite gui *.o *.gch
 	rm -f $(BOUTON)*.o $(BOUTON)*.gch
+doc:
+	doxygen config_projet
 chemin:
 	echo $(DIR)
 # Attention dans la ligne ci-dessus il faut Ã©crire

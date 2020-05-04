@@ -5,3 +5,4 @@
 * Correction du bug sur le resize des 'BoutonTexte'
 * Ajout d'options d'édition du style de la légende des 'BoutonTexte'
 * Ajout d'une documentation en html et en LaTeX générée avec doxygen
+* Changement du titre du projet dans la doc et ajout d'une formule dans le makefile pour générer la documentation
