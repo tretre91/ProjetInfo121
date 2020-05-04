@@ -1,12 +1,26 @@
 //les bibliothèques <SFML/Graphics.hpp>, <string> et <iostream> sont inclues dans "bouton.hpp"
 #include <cstdlib>
-#include "bouton.hpp"
+#include "Bouton/bouton_herit.hpp"
+#include "Bouton/bouton.hpp"
 #include "termite.hpp"
 using namespace std;
 
 const float DENSITE_TERMITE = 0.25;
 const float DENSITE_BRINDILLE = 0.15;
 const int NB_TEXTURES = 5;
+
+/** Permet de récuperer le chemin du dossier du fichier
+ * @return s le chemin vers le dossier où a eu lieu la compilation
+ **/
+string wdir(){
+	string s = __FILE__;
+	for(int i = s.size()-1; i >= 0; i--)
+		if(s[i] == '/'){
+			s.erase(i+1, s.size());
+			break;
+		}
+	return s;
+}
 
 /** Permet de faire tourner un sprite de 90,180 ou 270°
  * @param s le sprite à modifier
@@ -106,26 +120,27 @@ void afficheGrille(Grille g, tabTermites T){
 }
 
 int main(){
+	string const cheminRessources = wdir()+"Ressources/";
 	/* Chargement des textures */
 	sf::Texture tabTextures[NB_TEXTURES];
 	
-	if(!tabTextures[0].loadFromFile(wdir()+"Ressources/termite_n.png")){ // texture de termite droit
+	if(!tabTextures[0].loadFromFile(cheminRessources + "termite_n.png")){ // texture de termite droit
 		cout << "Echec du chargement de la texture termite_droit" << endl;
 	}
 	
-	if(!tabTextures[1].loadFromFile(wdir()+"Ressources/termite_no.png")){ // texture de termite penché (en diagonale)
+	if(!tabTextures[1].loadFromFile(cheminRessources + "termite_no.png")){ // texture de termite penché (en diagonale)
 		cout << "Echec du chargement de la texture termite_penche" << endl;
 	}
 	
-	if(!tabTextures[2].loadFromFile(wdir()+"Ressources/brindille.png")){ // texture de brindille
+	if(!tabTextures[2].loadFromFile(cheminRessources + "brindille.png")){ // texture de brindille
 		cout << "Echec du chargement de la texture brindille" << endl;
 	}
 	
-	if(!tabTextures[3].loadFromFile(wdir()+"Ressources/termite_charge_n.png")){ // texture de termite droit qui porte une brindille
+	if(!tabTextures[3].loadFromFile(cheminRessources + "termite_charge_n.png")){ // texture de termite droit qui porte une brindille
 		cout << "Echec du chargement de la texture termite_charge_droit" << endl;
 	}
 	
-	if(!tabTextures[5].loadFromFile(wdir()+"Ressources/termite_charge_no.png")){ // texture de termite penché qui porte une brindille
+	if(!tabTextures[5].loadFromFile(cheminRessources + "termite_charge_no.png")){ // texture de termite penché qui porte une brindille
 		cout << "Echec du chargement de la texture termite_charge_penche" << endl;
 	}
 	/* Fin du chargement des textures */
@@ -160,8 +175,8 @@ int main(){
 	separateur.setFillColor(sf::Color::Black);
 	separateur.setPosition(tailleFenetre, 0);
 	
-	Bouton passe(sf::Vector2f(tailleFenetre+50, 50), sf::Vector2f(100, 50), gris);
-	passe.setText("Passe");
+	BoutonTexte passe(sf::Vector2f(tailleFenetre+50, 50), sf::Vector2f(100, 50), "Passe");
+	passe.setColor(gris);
 	passe.setTextSize(30);
 	
 	Bouton bouton;
