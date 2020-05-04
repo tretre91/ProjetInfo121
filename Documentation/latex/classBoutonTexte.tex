@@ -39,9 +39,13 @@ void \hyperlink{classBoutonTexte_a6f61089ff0ac3781d7e8ee6b71abbd01}{set\+Text\+S
 \item 
 void \hyperlink{classBoutonTexte_aa1be3dfb869765c3fb3af4d44d0736ed}{set\+Font} (sf\+::\+Font const \&font)
 \item 
-void \hyperlink{classBoutonTexte_a6b1db5ebeca2a12e5525770ed5636687}{set\+Underline} (bool underline)
-\item 
 void \hyperlink{classBoutonTexte_afcaf8ea6421d4ded5cee30739553c17e}{set\+Bold} (bool bold)
+\item 
+void \hyperlink{classBoutonTexte_aa448c0163aca20db26a3cd92d266ab83}{set\+Italic} (bool italic)
+\item 
+void \hyperlink{classBoutonTexte_a7fdc380e2cd49d2b8e6c57cb456cb8ae}{set\+Underlined} (bool underlined)
+\item 
+void \hyperlink{classBoutonTexte_ab81c1ce75bbb54265dad98c86c67ea74}{set\+Strike\+Through} (bool strike\+Through)
 \item 
 sf\+::\+Text \hyperlink{classBoutonTexte_a426af0b13653bc55cb4652ce4d1fe985}{get\+Text} () const
 \item 
@@ -57,6 +61,10 @@ bool \hyperlink{classBoutonTexte_a8f5bb56ad2161d1d204ee73af9d68eb8}{fit\+Text} (
 void \hyperlink{classBoutonTexte_a54ca85310f69ccc120df980495390466}{adapt\+Text} ()
 \item 
 void \hyperlink{classBoutonTexte_a3b9eef3a26d8925c558582a7216c8e3c}{center\+Text} ()
+\item 
+void \hyperlink{classBoutonTexte_a418fb00a38049d07199fc619fe4e31d3}{modif\+Style} (bool bold, bool italic, bool underlined, bool strike\+Through)
+\item 
+void \hyperlink{classBoutonTexte_ab1ffba678bd0b224149859d2925cb49b}{init\+Style} ()
 \end{DoxyCompactItemize}
 \subsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
@@ -64,6 +72,8 @@ void \hyperlink{classBoutonTexte_a3b9eef3a26d8925c558582a7216c8e3c}{center\+Text
 sf\+::\+Font \hyperlink{classBoutonTexte_a92d3ce11bc4a1719d86458bad2f05849}{m\+\_\+font}
 \item 
 sf\+::\+Text \hyperlink{classBoutonTexte_a96c677df7e44162cc9206e84fe2692cf}{m\+\_\+text}
+\item 
+bool \hyperlink{classBoutonTexte_a9103da6bfb25d8871e3fdbda942ec3d1}{m\+\_\+style} \mbox{[}4\mbox{]}
 \end{DoxyCompactItemize}
 
 
@@ -173,12 +183,29 @@ un string contenant la légende
 Permet d\textquotesingle{}obtenir le sf\+::\+Text correspondant à la légende du bouton \begin{DoxyReturn}{Returns}
 un sf\+::\+Text correspondant à celui du bouton 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classBoutonTexte_afcaf8ea6421d4ded5cee30739553c17e}\label{classBoutonTexte_afcaf8ea6421d4ded5cee30739553c17e}} 
+\mbox{\Hypertarget{classBoutonTexte_ab1ffba678bd0b224149859d2925cb49b}\label{classBoutonTexte_ab1ffba678bd0b224149859d2925cb49b}} 
+\index{Bouton\+Texte@{Bouton\+Texte}!init\+Style@{init\+Style}}
+\index{init\+Style@{init\+Style}!Bouton\+Texte@{Bouton\+Texte}}
+\subsubsection{\texorpdfstring{init\+Style()}{initStyle()}}
+{\footnotesize\ttfamily void Bouton\+Texte\+::init\+Style (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Enregistre la donnée sur le style du sf\+::\+Text de la légende \mbox{\Hypertarget{classBoutonTexte_a418fb00a38049d07199fc619fe4e31d3}\label{classBoutonTexte_a418fb00a38049d07199fc619fe4e31d3}} 
+\index{Bouton\+Texte@{Bouton\+Texte}!modif\+Style@{modif\+Style}}
+\index{modif\+Style@{modif\+Style}!Bouton\+Texte@{Bouton\+Texte}}
+\subsubsection{\texorpdfstring{modif\+Style()}{modifStyle()}}
+{\footnotesize\ttfamily void Bouton\+Texte\+::modif\+Style (\begin{DoxyParamCaption}\item[{bool}]{bold,  }\item[{bool}]{italic,  }\item[{bool}]{underlined,  }\item[{bool}]{strike\+Through }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Modifie les booléens contenus dans m\+\_\+style. Utilisée uniquement dans la méthode \hyperlink{classBoutonTexte_ab1ffba678bd0b224149859d2925cb49b}{init\+Style()} \mbox{\Hypertarget{classBoutonTexte_afcaf8ea6421d4ded5cee30739553c17e}\label{classBoutonTexte_afcaf8ea6421d4ded5cee30739553c17e}} 
 \index{Bouton\+Texte@{Bouton\+Texte}!set\+Bold@{set\+Bold}}
 \index{set\+Bold@{set\+Bold}!Bouton\+Texte@{Bouton\+Texte}}
 \subsubsection{\texorpdfstring{set\+Bold()}{setBold()}}
 {\footnotesize\ttfamily void Bouton\+Texte\+::set\+Bold (\begin{DoxyParamCaption}\item[{bool}]{bold }\end{DoxyParamCaption})}
 
+Permet de définir si la légende est écrite en gras 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em bold} & un booléen qui indique si le texte doit être en gras \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{classBoutonTexte_aa1be3dfb869765c3fb3af4d44d0736ed}\label{classBoutonTexte_aa1be3dfb869765c3fb3af4d44d0736ed}} 
 \index{Bouton\+Texte@{Bouton\+Texte}!set\+Font@{set\+Font}}
 \index{set\+Font@{set\+Font}!Bouton\+Texte@{Bouton\+Texte}}
@@ -188,6 +215,28 @@ un sf\+::\+Text correspondant à celui du bouton
 Modifie la police du texte de la légende 
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\tt in}  & {\em font} & la nouvelle police à utiliser \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classBoutonTexte_aa448c0163aca20db26a3cd92d266ab83}\label{classBoutonTexte_aa448c0163aca20db26a3cd92d266ab83}} 
+\index{Bouton\+Texte@{Bouton\+Texte}!set\+Italic@{set\+Italic}}
+\index{set\+Italic@{set\+Italic}!Bouton\+Texte@{Bouton\+Texte}}
+\subsubsection{\texorpdfstring{set\+Italic()}{setItalic()}}
+{\footnotesize\ttfamily void Bouton\+Texte\+::set\+Italic (\begin{DoxyParamCaption}\item[{bool}]{italic }\end{DoxyParamCaption})}
+
+Permet de définir si la légende est écrite en italique 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em italic} & un booléen qui indique si le texte doit être en italique \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classBoutonTexte_ab81c1ce75bbb54265dad98c86c67ea74}\label{classBoutonTexte_ab81c1ce75bbb54265dad98c86c67ea74}} 
+\index{Bouton\+Texte@{Bouton\+Texte}!set\+Strike\+Through@{set\+Strike\+Through}}
+\index{set\+Strike\+Through@{set\+Strike\+Through}!Bouton\+Texte@{Bouton\+Texte}}
+\subsubsection{\texorpdfstring{set\+Strike\+Through()}{setStrikeThrough()}}
+{\footnotesize\ttfamily void Bouton\+Texte\+::set\+Strike\+Through (\begin{DoxyParamCaption}\item[{bool}]{strike\+Through }\end{DoxyParamCaption})}
+
+Permet de définir si la légende est barrée 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em strike\+Through} & un booléen qui indique si le texte doit être barré \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{classBoutonTexte_a56d8e807f6bfa767c7e99e86111cb3c5}\label{classBoutonTexte_a56d8e807f6bfa767c7e99e86111cb3c5}} 
@@ -219,19 +268,19 @@ Modifie la légende du bouton
 {\footnotesize\ttfamily void Bouton\+Texte\+::set\+Text\+Size (\begin{DoxyParamCaption}\item[{uint}]{taille }\end{DoxyParamCaption})}
 
 Modifie la taille du texte de la légende 
-\begin{DoxyParams}{Parameters}
-{\em taille} & la nouvelle taille du texte (en pixel) \\
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em taille} & la nouvelle taille du texte (en pixel) \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{classBoutonTexte_a6b1db5ebeca2a12e5525770ed5636687}\label{classBoutonTexte_a6b1db5ebeca2a12e5525770ed5636687}} 
-\index{Bouton\+Texte@{Bouton\+Texte}!set\+Underline@{set\+Underline}}
-\index{set\+Underline@{set\+Underline}!Bouton\+Texte@{Bouton\+Texte}}
-\subsubsection{\texorpdfstring{set\+Underline()}{setUnderline()}}
-{\footnotesize\ttfamily void Bouton\+Texte\+::set\+Underline (\begin{DoxyParamCaption}\item[{bool}]{underline }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{classBoutonTexte_a7fdc380e2cd49d2b8e6c57cb456cb8ae}\label{classBoutonTexte_a7fdc380e2cd49d2b8e6c57cb456cb8ae}} 
+\index{Bouton\+Texte@{Bouton\+Texte}!set\+Underlined@{set\+Underlined}}
+\index{set\+Underlined@{set\+Underlined}!Bouton\+Texte@{Bouton\+Texte}}
+\subsubsection{\texorpdfstring{set\+Underlined()}{setUnderlined()}}
+{\footnotesize\ttfamily void Bouton\+Texte\+::set\+Underlined (\begin{DoxyParamCaption}\item[{bool}]{underlined }\end{DoxyParamCaption})}
 
 Permet de définir si la légende est soulignée 
-\begin{DoxyParams}{Parameters}
-{\em undetline} & un booléen qui indique si le texte doit être souligné \\
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em underlined} & un booléen qui indique si le texte doit être souligné \\
 \hline
 \end{DoxyParams}
 
@@ -245,7 +294,17 @@ Permet de définir si la légende est soulignée
 
 
 
-Definition at line 57 of file bouton\+\_\+herit.\+hpp.
+Definition at line 77 of file bouton\+\_\+herit.\+hpp.
+
+\mbox{\Hypertarget{classBoutonTexte_a9103da6bfb25d8871e3fdbda942ec3d1}\label{classBoutonTexte_a9103da6bfb25d8871e3fdbda942ec3d1}} 
+\index{Bouton\+Texte@{Bouton\+Texte}!m\+\_\+style@{m\+\_\+style}}
+\index{m\+\_\+style@{m\+\_\+style}!Bouton\+Texte@{Bouton\+Texte}}
+\subsubsection{\texorpdfstring{m\+\_\+style}{m\_style}}
+{\footnotesize\ttfamily bool Bouton\+Texte\+::m\+\_\+style\mbox{[}4\mbox{]}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 79 of file bouton\+\_\+herit.\+hpp.
 
 \mbox{\Hypertarget{classBoutonTexte_a96c677df7e44162cc9206e84fe2692cf}\label{classBoutonTexte_a96c677df7e44162cc9206e84fe2692cf}} 
 \index{Bouton\+Texte@{Bouton\+Texte}!m\+\_\+text@{m\+\_\+text}}
@@ -255,7 +314,7 @@ Definition at line 57 of file bouton\+\_\+herit.\+hpp.
 
 
 
-Definition at line 58 of file bouton\+\_\+herit.\+hpp.
+Definition at line 78 of file bouton\+\_\+herit.\+hpp.
 
 
 
