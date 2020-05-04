@@ -19,6 +19,7 @@ class BoutonTexte : public Bouton{
 		 * @param [in] texte un string correspondant à la nouvelle légende
 		 **/
 		void setText(std::string const& texte);
+		
 		/** Modifie la légende du bouton
 		 * @param [in] texte un sf::Text qui remplace celui du bouton
 		 * *On peut modifier avec cette méthodes d'autres attributs de la légende
@@ -26,23 +27,42 @@ class BoutonTexte : public Bouton{
 		 *  un sf::Text contenant les attributs souhaités
 		 **/
 		void setText(sf::Text const& texte);
+		
 		/** Modifie la taille du texte de la légende
-		 * @param taille la nouvelle taille du texte (en pixel)
+		 * @param [in] taille la nouvelle taille du texte (en pixel)
 		 **/
 		void setTextSize(uint taille);
+		
 		/** Modifie la police du texte de la légende
 		 * @param [in] font la nouvelle police à utiliser
 		 **/
 		void setFont(sf::Font const& font);
-		/** Permet de définir si la légende est soulignée
-		 * @param undetline un booléen qui indique si le texte doit être souligné
+		
+		/** Permet de définir si la légende est écrite en gras
+		 * @param [in] bold: un booléen qui indique si le texte doit être en gras
 		 **/
-		void setUnderline(bool underline);
 		void setBold(bool bold);
+		
+		/** Permet de définir si la légende est écrite en italique
+		 * @param [in] italic: un booléen qui indique si le texte doit être en italique
+		 **/
+		void setItalic(bool italic);
+		
+		/** Permet de définir si la légende est soulignée
+		 * @param [in] underlined: un booléen qui indique si le texte doit être souligné
+		 **/
+		void setUnderlined(bool underlined);
+		
+		/** Permet de définir si la légende est barrée
+		 * @param [in] strikeThrough: un booléen qui indique si le texte doit être barré
+		 **/
+		void setStrikeThrough(bool strikeThrough);
+		
 		/** Permet d'obtenir le sf::Text correspondant à la légende du bouton
 		 * @return un sf::Text correspondant à celui du bouton
 		 **/
 		sf::Text getText() const;
+		
 		/** Permet d'obtenir le texte de la légende du bouton
 		 * @return un string contenant la légende
 		 **/
@@ -56,6 +76,7 @@ class BoutonTexte : public Bouton{
 	protected:
 		sf::Font m_font;
 		sf::Text m_text;
+		bool m_style[4];
 		
 		/** Vérifie si texte ne dépasse pas du bouton **/
 		bool fitText() const;
@@ -63,6 +84,10 @@ class BoutonTexte : public Bouton{
 		void adaptText();
 		/** Aligne la légende au milieu du bouton **/
 		void centerText();
+		/** Modifie les booléens contenus dans m_style. Utilisée uniquement dans la méthode initStyle() **/
+		void modifStyle(bool bold, bool italic, bool underlined, bool strikeThrough);
+		/** Enregistre la donnée sur le style du sf::Text de la légende **/
+		void initStyle();
 };
 
 #endif

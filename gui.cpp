@@ -178,7 +178,7 @@ int main(){
 	BoutonTexte passe(sf::Vector2f(tailleFenetre+50, 50), sf::Vector2f(100, 50), "Passe");
 	passe.setColor(sf::Color::Red);
 	passe.setTextSize(30);
-	passe.setUnderline(true);
+	passe.setUnderlined(true);
 	passe.setBold(true);
 	
 	Bouton bouton;
@@ -201,7 +201,7 @@ int main(){
 					if(passe.contient(event.mouseButton.x, event.mouseButton.y))
 						switch(event.mouseButton.button){
 							case sf::Mouse::Left: bouton.setSize(100, 50); break;
-							case sf::Mouse::Right: passe.setText("Clic!"); break;
+							case sf::Mouse::Right: passe.setText("Clic!"); passe.setUnderlined(false); passe.setStrikeThrough(true); break;
 							default: break;
 						}
 					break;
