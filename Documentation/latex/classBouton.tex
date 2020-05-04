@@ -1,0 +1,326 @@
+\hypertarget{classBouton}{}\section{Bouton Class Reference}
+\label{classBouton}\index{Bouton@{Bouton}}
+
+
+{\ttfamily \#include $<$bouton.\+hpp$>$}
+
+
+
+Inheritance diagram for Bouton\+:
+% FIG 0
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classBouton_ad1e4f684cad81db47393df0be7a65658}{Bouton} ()
+\item 
+\hyperlink{classBouton_a5e8167b03707ae5bae44cb8f281e9a56}{Bouton} (sf\+::\+Vector2f const \&size)
+\item 
+\hyperlink{classBouton_a116bf7c1c63d6989dc7b80ed44ac44fd}{Bouton} (sf\+::\+Vector2f const \&size, sf\+::\+Color const \&color)
+\item 
+\hyperlink{classBouton_a7386d8e7eaa9c48e2c1f051060536999}{Bouton} (sf\+::\+Vector2f const \&position, sf\+::\+Vector2f const \&size)
+\item 
+\hyperlink{classBouton_ac6a6edb5f25a6f81a0723f5de06110e9}{Bouton} (sf\+::\+Vector2f const \&position, sf\+::\+Vector2f const \&size, sf\+::\+Color const \&color)
+\item 
+void \hyperlink{classBouton_a0e06118eadd748506d8e0b4c965afd5a}{set\+Color} (sf\+::\+Color const \&color)
+\item 
+void \hyperlink{classBouton_a24afe0c72297cc0afa04dfa881655a76}{set\+Color} (int const \&r, int const \&g, int const \&b, int alpha)
+\item 
+sf\+::\+Color \hyperlink{classBouton_af6646f95d000b61b576747235d0ea665}{get\+Color} () const
+\item 
+void \hyperlink{classBouton_a119371e4b5b8480413cff4f2fb994c80}{set\+Position} (int const \&x, int const \&y)
+\item 
+void \hyperlink{classBouton_a0e446a7567d7a018492694ee792a46bf}{set\+Position} (sf\+::\+Vector2f const \&pos)
+\item 
+sf\+::\+Vector2f \hyperlink{classBouton_a496926e39e87be5f946b4c1b53accd21}{get\+Position} () const
+\item 
+void \hyperlink{classBouton_a2cdcf89c086a350a62eebc56622d17be}{set\+Size} (int const \&hauteur, int const \&largeur)
+\item 
+void \hyperlink{classBouton_adc1178a837da30f0fbf621279a63f9f2}{set\+Size} (sf\+::\+Vector2f const \&taille)
+\item 
+sf\+::\+Vector2f \hyperlink{classBouton_a5eb1b5b89f88a838238456c162f648e6}{get\+Size} () const
+\item 
+bool \hyperlink{classBouton_a34872de8ba5b4dd5935db5baa8330882}{contient} (int const \&x, int const \&y) const
+\item 
+bool \hyperlink{classBouton_a8ddcd4bf956aba9593892719f0257231}{contient} (sf\+::\+Vector2f const \&coord) const
+\item 
+void \hyperlink{classBouton_a57bd7f1865b5d3f698a5a02c92556697}{dessiner} (sf\+::\+Render\+Window \&window)
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \hyperlink{classBouton_aab0ffe436ee4e87f556f743bda7cd2b8}{wdir} () const
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+sf\+::\+Rectangle\+Shape \hyperlink{classBouton_af2eabc621f9ca506ecc480931a54939a}{m\+\_\+base}
+\item 
+sf\+::\+Vector2f \hyperlink{classBouton_aad1cc2d04d21e0145520b28053371c4e}{m\+\_\+size}
+\item 
+sf\+::\+Vector2f \hyperlink{classBouton_ab667f97c8bdea7263faa608d5efa67c2}{m\+\_\+position}
+\item 
+sf\+::\+Color \hyperlink{classBouton_ac83f8fb8ff41a2df355ce974e95460ee}{m\+\_\+color}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 8 of file bouton.\+hpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classBouton_ad1e4f684cad81db47393df0be7a65658}\label{classBouton_ad1e4f684cad81db47393df0be7a65658}} 
+\index{Bouton@{Bouton}!Bouton@{Bouton}}
+\index{Bouton@{Bouton}!Bouton@{Bouton}}
+\subsubsection{\texorpdfstring{Bouton()}{Bouton()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily Bouton\+::\+Bouton (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Constructeur par défaut de la classe \hyperlink{classBouton}{Bouton} $\ast$\+Créé un bouton gris de taille 40$\ast$20 en position (0,0) \mbox{\Hypertarget{classBouton_a5e8167b03707ae5bae44cb8f281e9a56}\label{classBouton_a5e8167b03707ae5bae44cb8f281e9a56}} 
+\index{Bouton@{Bouton}!Bouton@{Bouton}}
+\index{Bouton@{Bouton}!Bouton@{Bouton}}
+\subsubsection{\texorpdfstring{Bouton()}{Bouton()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily Bouton\+::\+Bouton (\begin{DoxyParamCaption}\item[{sf\+::\+Vector2f const \&}]{size }\end{DoxyParamCaption})}
+
+Constructeur surchargé 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em size} & la taille du buton contenue dans un sf\+::\+Vector2f $\ast$\+Créé un bouton gris de taille size en position (0,0) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classBouton_a116bf7c1c63d6989dc7b80ed44ac44fd}\label{classBouton_a116bf7c1c63d6989dc7b80ed44ac44fd}} 
+\index{Bouton@{Bouton}!Bouton@{Bouton}}
+\index{Bouton@{Bouton}!Bouton@{Bouton}}
+\subsubsection{\texorpdfstring{Bouton()}{Bouton()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily Bouton\+::\+Bouton (\begin{DoxyParamCaption}\item[{sf\+::\+Vector2f const \&}]{size,  }\item[{sf\+::\+Color const \&}]{color }\end{DoxyParamCaption})}
+
+Constructeur surchargé 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em size} & la taille du buton contenue dans un sf\+::\+Vector2f \\
+\hline
+\mbox{\tt in}  & {\em color} & la couleur du bouton $\ast$\+Créé un bouton de couleur \textquotesingle{}color\textquotesingle{} et de taille \textquotesingle{}size\textquotesingle{} en position (0,0) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classBouton_a7386d8e7eaa9c48e2c1f051060536999}\label{classBouton_a7386d8e7eaa9c48e2c1f051060536999}} 
+\index{Bouton@{Bouton}!Bouton@{Bouton}}
+\index{Bouton@{Bouton}!Bouton@{Bouton}}
+\subsubsection{\texorpdfstring{Bouton()}{Bouton()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily Bouton\+::\+Bouton (\begin{DoxyParamCaption}\item[{sf\+::\+Vector2f const \&}]{position,  }\item[{sf\+::\+Vector2f const \&}]{size }\end{DoxyParamCaption})}
+
+Constructeur surchargé 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em position} & la position du bouton dans la fenetre dans un sf\+::\+Vector2f \\
+\hline
+\mbox{\tt in}  & {\em size} & la taille du buton contenue dans un sf\+::\+Vector2f $\ast$\+Créé un bouton gris et de taille \textquotesingle{}size\textquotesingle{} en position (position.\+x, position.\+y) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classBouton_ac6a6edb5f25a6f81a0723f5de06110e9}\label{classBouton_ac6a6edb5f25a6f81a0723f5de06110e9}} 
+\index{Bouton@{Bouton}!Bouton@{Bouton}}
+\index{Bouton@{Bouton}!Bouton@{Bouton}}
+\subsubsection{\texorpdfstring{Bouton()}{Bouton()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily Bouton\+::\+Bouton (\begin{DoxyParamCaption}\item[{sf\+::\+Vector2f const \&}]{position,  }\item[{sf\+::\+Vector2f const \&}]{size,  }\item[{sf\+::\+Color const \&}]{color }\end{DoxyParamCaption})}
+
+Constructeur surchargé 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em position} & la position du bouton dans la fenetre dans un sf\+::\+Vector2f \\
+\hline
+\mbox{\tt in}  & {\em size} & la taille du buton contenue dans un sf\+::\+Vector2f \\
+\hline
+\mbox{\tt in}  & {\em color} & la couleur du bouton $\ast$\+Créé un bouton de couleur \textquotesingle{}color\textquotesingle{} et de taille \textquotesingle{}size\textquotesingle{} en position (position.\+x, position.\+y) \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classBouton_a34872de8ba5b4dd5935db5baa8330882}\label{classBouton_a34872de8ba5b4dd5935db5baa8330882}} 
+\index{Bouton@{Bouton}!contient@{contient}}
+\index{contient@{contient}!Bouton@{Bouton}}
+\subsubsection{\texorpdfstring{contient()}{contient()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool Bouton\+::contient (\begin{DoxyParamCaption}\item[{int const \&}]{x,  }\item[{int const \&}]{y }\end{DoxyParamCaption}) const}
+
+Indique si une coordonée se trouve dans le bouton 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em x,y} & le couple de coordonnées à tester \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true si (x,y) est dans le bouton 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBouton_a8ddcd4bf956aba9593892719f0257231}\label{classBouton_a8ddcd4bf956aba9593892719f0257231}} 
+\index{Bouton@{Bouton}!contient@{contient}}
+\index{contient@{contient}!Bouton@{Bouton}}
+\subsubsection{\texorpdfstring{contient()}{contient()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool Bouton\+::contient (\begin{DoxyParamCaption}\item[{sf\+::\+Vector2f const \&}]{coord }\end{DoxyParamCaption}) const}
+
+Indique si une coordonée se trouve dans le bouton 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em coord} & un sf\+::\+Vector2f contenant les coordonnées à tester \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true si (x,y) est dans le bouton 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBouton_a57bd7f1865b5d3f698a5a02c92556697}\label{classBouton_a57bd7f1865b5d3f698a5a02c92556697}} 
+\index{Bouton@{Bouton}!dessiner@{dessiner}}
+\index{dessiner@{dessiner}!Bouton@{Bouton}}
+\subsubsection{\texorpdfstring{dessiner()}{dessiner()}}
+{\footnotesize\ttfamily void Bouton\+::dessiner (\begin{DoxyParamCaption}\item[{sf\+::\+Render\+Window \&}]{window }\end{DoxyParamCaption})}
+
+Permet de dessiner le bouton dans une sf\+::\+Render\+Window 
+\begin{DoxyParams}{Parameters}
+{\em \mbox{[}in/out\mbox{]}} & window la fenêtre dans laquelle on vait dessiner le bouton \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classBouton_af6646f95d000b61b576747235d0ea665}\label{classBouton_af6646f95d000b61b576747235d0ea665}} 
+\index{Bouton@{Bouton}!get\+Color@{get\+Color}}
+\index{get\+Color@{get\+Color}!Bouton@{Bouton}}
+\subsubsection{\texorpdfstring{get\+Color()}{getColor()}}
+{\footnotesize\ttfamily sf\+::\+Color Bouton\+::get\+Color (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Permet d\textquotesingle{}obtenir la couleur du bouton \begin{DoxyReturn}{Returns}
+la couleur du bouton en tant que sf\+::\+Color 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBouton_a496926e39e87be5f946b4c1b53accd21}\label{classBouton_a496926e39e87be5f946b4c1b53accd21}} 
+\index{Bouton@{Bouton}!get\+Position@{get\+Position}}
+\index{get\+Position@{get\+Position}!Bouton@{Bouton}}
+\subsubsection{\texorpdfstring{get\+Position()}{getPosition()}}
+{\footnotesize\ttfamily sf\+::\+Vector2f Bouton\+::get\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Permet d\textquotesingle{}obtenir la position actuelle du bouton \begin{DoxyReturn}{Returns}
+la position du bouton dans un sf\+::\+Vector2f 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBouton_a5eb1b5b89f88a838238456c162f648e6}\label{classBouton_a5eb1b5b89f88a838238456c162f648e6}} 
+\index{Bouton@{Bouton}!get\+Size@{get\+Size}}
+\index{get\+Size@{get\+Size}!Bouton@{Bouton}}
+\subsubsection{\texorpdfstring{get\+Size()}{getSize()}}
+{\footnotesize\ttfamily sf\+::\+Vector2f Bouton\+::get\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Permet d\textquotesingle{}obtenir la taille du bouton \begin{DoxyReturn}{Returns}
+les mesures du bouton contenues dan un sf\+::\+Vector2f 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBouton_a0e06118eadd748506d8e0b4c965afd5a}\label{classBouton_a0e06118eadd748506d8e0b4c965afd5a}} 
+\index{Bouton@{Bouton}!set\+Color@{set\+Color}}
+\index{set\+Color@{set\+Color}!Bouton@{Bouton}}
+\subsubsection{\texorpdfstring{set\+Color()}{setColor()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Bouton\+::set\+Color (\begin{DoxyParamCaption}\item[{sf\+::\+Color const \&}]{color }\end{DoxyParamCaption})}
+
+Modifie la couleur du bouton (et eventuellement sa transparence) 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em color} & la nouvelle couleur du bouton \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classBouton_a24afe0c72297cc0afa04dfa881655a76}\label{classBouton_a24afe0c72297cc0afa04dfa881655a76}} 
+\index{Bouton@{Bouton}!set\+Color@{set\+Color}}
+\index{set\+Color@{set\+Color}!Bouton@{Bouton}}
+\subsubsection{\texorpdfstring{set\+Color()}{setColor()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Bouton\+::set\+Color (\begin{DoxyParamCaption}\item[{int const \&}]{r,  }\item[{int const \&}]{g,  }\item[{int const \&}]{b,  }\item[{int}]{alpha }\end{DoxyParamCaption})}
+
+Modifie la couleur du bouton (et eventuellement sa transparence) 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em r,g,b} & les composantes rouge, vertes et bleues de la couleur voulue \\
+\hline
+\mbox{\tt in}  & {\em alpha} & l\textquotesingle{}opacité du bouton \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classBouton_a119371e4b5b8480413cff4f2fb994c80}\label{classBouton_a119371e4b5b8480413cff4f2fb994c80}} 
+\index{Bouton@{Bouton}!set\+Position@{set\+Position}}
+\index{set\+Position@{set\+Position}!Bouton@{Bouton}}
+\subsubsection{\texorpdfstring{set\+Position()}{setPosition()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Bouton\+::set\+Position (\begin{DoxyParamCaption}\item[{int const \&}]{x,  }\item[{int const \&}]{y }\end{DoxyParamCaption})}
+
+Modifie la position du bouton 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em x} & la nouvelle coordonnée en x \\
+\hline
+\mbox{\tt in}  & {\em y} & la nouvelle coordonnée en y \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classBouton_a0e446a7567d7a018492694ee792a46bf}\label{classBouton_a0e446a7567d7a018492694ee792a46bf}} 
+\index{Bouton@{Bouton}!set\+Position@{set\+Position}}
+\index{set\+Position@{set\+Position}!Bouton@{Bouton}}
+\subsubsection{\texorpdfstring{set\+Position()}{setPosition()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Bouton\+::set\+Position (\begin{DoxyParamCaption}\item[{sf\+::\+Vector2f const \&}]{pos }\end{DoxyParamCaption})}
+
+Modifie la position du bouton 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em pos} & un sf\+::\+Vector2f contenant les nouvelles coordonnées du bouton \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classBouton_a2cdcf89c086a350a62eebc56622d17be}\label{classBouton_a2cdcf89c086a350a62eebc56622d17be}} 
+\index{Bouton@{Bouton}!set\+Size@{set\+Size}}
+\index{set\+Size@{set\+Size}!Bouton@{Bouton}}
+\subsubsection{\texorpdfstring{set\+Size()}{setSize()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Bouton\+::set\+Size (\begin{DoxyParamCaption}\item[{int const \&}]{hauteur,  }\item[{int const \&}]{largeur }\end{DoxyParamCaption})}
+
+Modifie la taille du bouton 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em hauteur} & la nouvelle hauteur du bouton (en pixel) \\
+\hline
+\mbox{\tt in}  & {\em largeur} & la nouvelle largeur du bouton (en pixel) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classBouton_adc1178a837da30f0fbf621279a63f9f2}\label{classBouton_adc1178a837da30f0fbf621279a63f9f2}} 
+\index{Bouton@{Bouton}!set\+Size@{set\+Size}}
+\index{set\+Size@{set\+Size}!Bouton@{Bouton}}
+\subsubsection{\texorpdfstring{set\+Size()}{setSize()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Bouton\+::set\+Size (\begin{DoxyParamCaption}\item[{sf\+::\+Vector2f const \&}]{taille }\end{DoxyParamCaption})}
+
+Modifie la taille du bouton 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em taille} & un sf\+::\+Vector2f contenant les nouvelles hauteur et largeur du bouton \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classBouton_aab0ffe436ee4e87f556f743bda7cd2b8}\label{classBouton_aab0ffe436ee4e87f556f743bda7cd2b8}} 
+\index{Bouton@{Bouton}!wdir@{wdir}}
+\index{wdir@{wdir}!Bouton@{Bouton}}
+\subsubsection{\texorpdfstring{wdir()}{wdir()}}
+{\footnotesize\ttfamily std\+::string Bouton\+::wdir (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+
+Aligne la légende au milieu du bouton 
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{classBouton_af2eabc621f9ca506ecc480931a54939a}\label{classBouton_af2eabc621f9ca506ecc480931a54939a}} 
+\index{Bouton@{Bouton}!m\+\_\+base@{m\+\_\+base}}
+\index{m\+\_\+base@{m\+\_\+base}!Bouton@{Bouton}}
+\subsubsection{\texorpdfstring{m\+\_\+base}{m\_base}}
+{\footnotesize\ttfamily sf\+::\+Rectangle\+Shape Bouton\+::m\+\_\+base\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 101 of file bouton.\+hpp.
+
+\mbox{\Hypertarget{classBouton_ac83f8fb8ff41a2df355ce974e95460ee}\label{classBouton_ac83f8fb8ff41a2df355ce974e95460ee}} 
+\index{Bouton@{Bouton}!m\+\_\+color@{m\+\_\+color}}
+\index{m\+\_\+color@{m\+\_\+color}!Bouton@{Bouton}}
+\subsubsection{\texorpdfstring{m\+\_\+color}{m\_color}}
+{\footnotesize\ttfamily sf\+::\+Color Bouton\+::m\+\_\+color\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 104 of file bouton.\+hpp.
+
+\mbox{\Hypertarget{classBouton_ab667f97c8bdea7263faa608d5efa67c2}\label{classBouton_ab667f97c8bdea7263faa608d5efa67c2}} 
+\index{Bouton@{Bouton}!m\+\_\+position@{m\+\_\+position}}
+\index{m\+\_\+position@{m\+\_\+position}!Bouton@{Bouton}}
+\subsubsection{\texorpdfstring{m\+\_\+position}{m\_position}}
+{\footnotesize\ttfamily sf\+::\+Vector2f Bouton\+::m\+\_\+position\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 103 of file bouton.\+hpp.
+
+\mbox{\Hypertarget{classBouton_aad1cc2d04d21e0145520b28053371c4e}\label{classBouton_aad1cc2d04d21e0145520b28053371c4e}} 
+\index{Bouton@{Bouton}!m\+\_\+size@{m\+\_\+size}}
+\index{m\+\_\+size@{m\+\_\+size}!Bouton@{Bouton}}
+\subsubsection{\texorpdfstring{m\+\_\+size}{m\_size}}
+{\footnotesize\ttfamily sf\+::\+Vector2f Bouton\+::m\+\_\+size\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 102 of file bouton.\+hpp.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Bouton/\hyperlink{bouton_8hpp}{bouton.\+hpp}\end{DoxyCompactItemize}

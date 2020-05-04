@@ -1,0 +1,14 @@
+\hypertarget{bouton_8hpp}{}\section{Bouton/bouton.hpp File Reference}
+\label{bouton_8hpp}\index{Bouton/bouton.\+hpp@{Bouton/bouton.\+hpp}}
+{\ttfamily \#include $<$S\+F\+M\+L/\+Graphics.\+hpp$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+Include dependency graph for bouton.\+hpp\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classBouton}{Bouton}
+\end{DoxyCompactItemize}
