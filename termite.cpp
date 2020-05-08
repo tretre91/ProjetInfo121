@@ -9,7 +9,7 @@ int tailleTableau(tabTermites T){
 }
 
 bool estPlein(tabTermites T){
-    return T.taille == 2*TAILLE;
+    return T.taille == (TAILLE*TAILLE)/10;
 }
 
 void creeTermite(tabTermites &T, Coord c){
@@ -18,6 +18,7 @@ void creeTermite(tabTermites &T, Coord c){
     nouv.position = c;
     nouv.direction = Direction(rand()%8);
     nouv.charge = false;
+	nouv.sablier = 0;
     
     T.tab[T.taille] = nouv;
     T.taille++;
@@ -75,11 +76,13 @@ void avanceTermite(Grille &g, Termite &t){
 void dechargeTermite(Grille &g, Termite &t){
     poseBrindille(g, devantTermite(t));
     t.charge = false;
+	t.sablier = 6;
 }
 
 void chargeTermite(Grille &g, Termite &t){
     enleveBrindille(g, devantTermite(t));
     t.charge = true;
+	t.sablier = 6;
 }
 
 void marcheAleatoire(Grille &g, Termite &t){
@@ -88,4 +91,13 @@ void marcheAleatoire(Grille &g, Termite &t){
         avanceTermite(g, t);
     else
         tourneAleat(t);
+}
+
+void modifierSablier(Termite &t){
+	if(t.sablier > 0)
+		t.sablier--;
+}
+
+int sablier(Termite t){
+	return t.sablier;
 }

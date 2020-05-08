@@ -6,6 +6,7 @@ struct Termite{
     Coord position;
     Direction direction;
     bool charge;
+	int sablier;
 };
 
 struct tabTermites{
@@ -119,3 +120,7 @@ void chargeTermite(Grille &g, Termite &t);
  * @param [in/out] t le termite que l'on souhaite déplacer
  **/
 void marcheAleatoire(Grille &g, Termite &t);
+
+void modifierSablier(Termite &t);
+
+int sablier(Termite t);

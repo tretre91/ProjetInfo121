@@ -26,7 +26,7 @@ bool dansGrille(Grille g, Coord c){
 }
 
 bool contientBrindille(Grille g, Coord c){
-    return g.t[getX(c)][getY(c)].contenu == -2;
+    return dansGrille(g, c) && g.t[getX(c)][getY(c)].contenu == -2;
 }
 
 int numeroTermite(Grille g, Coord c){
