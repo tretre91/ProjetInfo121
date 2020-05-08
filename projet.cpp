@@ -51,16 +51,37 @@ void initGrille(Grille &g, tabTermites &T){
 void deplacement(Grille &g, tabTermites &T){
 	for(int i = 0; i < tailleTableau(T); i++){
 		modifierSablier(T.tab[i]);
-		if(sablier(T.tab[i]) == 0){
-			if(brindilleEnFace(g, T.tab[i]) && !porteBrindille(T.tab[i]))
+		if(sablier(T.tab[i]) == 0 && brindilleEnFace(g, T.tab[i])){
+			if(!porteBrindille(T.tab[i]))
 				chargeTermite(g, T.tab[i]);
-			else if(porteBrindille(T.tab[i]) && pasEnferme(g, T.tab[i]) && laVoieEstLibre(g, T.tab[i]))
+			else if(porteBrindille(T.tab[i]) && pasEnferme(g, T.tab[i])){
+				while(!laVoieEstLibre(g, T.tab[i]))
+					tourneADroite(T.tab[i]);
 				dechargeTermite(g, T.tab[i]);
+			}
 			else
 				marcheAleatoire(g, T.tab[i]);
 		} else {
 			marcheAleatoire(g, T.tab[i]);
 		}
+	}
+}
+
+void simulation(Grille &g, tabTermites &T){
+	char a;
+	int nbPasse = 1;
+	while(true){
+		a = getchar();
+		switch(a){
+			case 'q': return;
+			case '*': if(nbPasse < 1000) nbPasse *= 10; break;
+			case '/': if(nbPasse > 1) nbPasse /= 10; break;
+			default: break;
+		}
+		for(int i = 0; i < nbPasse; i++)
+			deplacement(g, T);
+		afficheGrille(g, T);
+		cout << "Vitesse x" << nbPasse << endl;
 	}
 }
 
@@ -72,13 +93,6 @@ int main(){
     initGrille(g, tabT);
     afficheGrille(g, tabT);
 	
-	char a;
-	while(true){
-		a = getchar();
-		if(a == 'q')
-			break;
-		deplacement(g, tabT);
-		afficheGrille(g, tabT);
-	}
+	simulation(g, tabT);
     return 0;
 }

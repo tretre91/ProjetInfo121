@@ -33,14 +33,12 @@ coord.o: coord.cpp coord.hpp
 grille.o: grille.cpp grille.hpp coord.hpp
 termite.o: termite.cpp termite.hpp grille.hpp coord.hpp
 gui.o: gui.cpp termite.hpp grille.hpp coord.hpp
-	$(CXX) $(CXXFLAGS) -c $(DIR)gui.cpp  termite.hpp
+	$(CXX) $(CXXFLAGS) -c gui.cpp  termite.hpp
 
 clean:
 	rm -f projet testgrille testcoord testtermite gui *.o
 fullClean:
 	rm -f projet testgrille testcoord testtermite gui *.o *.gch
-doc:
-	doxygen config_projet
 chemin:
 	echo $(DIR)
 # Attention dans la ligne ci-dessus il faut Ã©crire

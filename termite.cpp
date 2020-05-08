@@ -87,7 +87,7 @@ void chargeTermite(Grille &g, Termite &t){
 
 void marcheAleatoire(Grille &g, Termite &t){
     int d = rand()%10;
-    if(d == 9 && laVoieEstLibre(g, t))
+    if(d > 0 && laVoieEstLibre(g, t))
         avanceTermite(g, t);
     else
         tourneAleat(t);

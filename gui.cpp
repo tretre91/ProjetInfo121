@@ -1,56 +1,36 @@
-//les bibliothèques <SFML/Graphics.hpp>, <string> et <iostream> sont inclues dans "bouton.hpp"
+#include <SFML/Graphics.hpp>
+#include <string>
+#include <iostream>
 #include <cstdlib>
-#include "Bouton/bouton_herit.hpp"
-#include "Bouton/bouton.hpp"
 #include "termite.hpp"
 using namespace std;
 
 const float DENSITE_TERMITE = 0.25;
-const float DENSITE_BRINDILLE = 0.15;
-const int NB_TEXTURES = 8;
-
-/** Permet de récuperer le chemin du dossier du fichier
- * @return s le chemin vers le dossier où a eu lieu la compilation
- **/
-string wdir(){
-	string s = __FILE__;
-	for(int i = s.size()-1; i >= 0; i--)
-		if(s[i] == '/'){
-			s.erase(i+1, s.size());
-			break;
-		}
-	return s;
-}
+const float DENSITE_BRINDILLE = 0.2;
+const int NB_TEXTURES = 5;
 
 /** Permet de charger les textures nécessaires à la simulation (grille et ui)
  * @param [out] tabTextures: le tableau de sf::Texture qui contient toutes les textures
  * @param [in] path: le chemin vers le dossier où a eu lieu la compilation
  **/
-void initTextures(sf::Texture tabTextures[NB_TEXTURES], string const& path){
-	if(!tabTextures[0].loadFromFile(path + "termite_n.png")){ // texture de termite droit
+void initTextures(sf::Texture tabTextures[NB_TEXTURES], sf::Sprite tabSprites[NB_TEXTURES]){
+	if(!tabTextures[0].loadFromFile("Ressources/termite_n.png")) // texture de termite droit
 		cout << "Echec du chargement de la texture termite_droit" << endl;
-	}
-	if(!tabTextures[1].loadFromFile(path + "termite_no.png")){ // texture de termite penché (en diagonale)
+	
+	if(!tabTextures[1].loadFromFile("Ressources/termite_no.png")) // texture de termite penché (en diagonale)
 		cout << "Echec du chargement de la texture termite_penche" << endl;
-	}
-	if(!tabTextures[2].loadFromFile(path + "brindille.png")){ // texture de brindille
+	
+	if(!tabTextures[2].loadFromFile("Ressources/brindille.png")) // texture de brindille
 		cout << "Echec du chargement de la texture brindille" << endl;
-	}
-	if(!tabTextures[3].loadFromFile(path + "termite_charge_n.png")){ // texture de termite droit qui porte une brindille
+	
+	if(!tabTextures[3].loadFromFile("Ressources/termite_charge_n.png")) // texture de termite droit qui porte une brindille
 		cout << "Echec du chargement de la texture termite_charge_droit" << endl;
-	}
-	if(!tabTextures[4].loadFromFile(path + "termite_charge_no.png")){ // texture de termite penché qui porte une brindille
+	
+	if(!tabTextures[4].loadFromFile("Ressources/termite_charge_no.png")) // texture de termite penché qui porte une brindille
 		cout << "Echec du chargement de la texture termite_charge_penche" << endl;
-	}
-	if(!tabTextures[5].loadFromFile(path + "play.png")){ // texture de logo play
-		cout << "Echec du chargement de la texture play" << endl;
-	}
-	if(!tabTextures[6].loadFromFile(path + "pause.png")){ // texture de logo pause
-		cout << "Echec du chargement de la texture pause" << endl;
-	}
-	if(!tabTextures[7].loadFromFile(path + "rewind.png")){ // texture de logo avance rapide
-		cout << "Echec du chargement de la texture rewind" << endl;
-	}
+	
+	for(int i = 0; i < NB_TEXTURES; i++)
+		tabSprites[i].setTexture(tabTextures[i]);
 }
 
 /** Détermine la taille en pixel d'une case en fonction de la taille de la grille
@@ -76,89 +56,89 @@ int initTaileCase(){
  * @param [in] angle: l'angle souhaité pour le sprite
  * @param [in] tailleCase: la taille d'une case dans la grille graphique (utile pour la rotation des elements de la grille)
  **/
-void rotation(sf::Sprite &s, int angle, int tailleCase = -1){
-	sf::Vector2i dimensionsCase;
-	if(tailleCase == -1)
-		dimensionsCase = sf::Vector2i(s.getGlobalBounds().width, s.getGlobalBounds().height);
-	else
-		dimensionsCase = sf::Vector2i(tailleCase, tailleCase);
+void rotation(sf::Sprite &s, int angle, int tailleCase){
 	sf::Vector2f scale = s.getScale();
 	sf::Vector2f pos = s.getPosition();
-	s.setRotation(angle);
+	s.rotate(angle);
 	switch(angle){
-		case 90: s.setPosition(pos.x + scale.x * dimensionsCase.y, pos.y); break;
-		case 180: s.setPosition(pos.x + scale.x * dimensionsCase.x, pos.y + scale.y * dimensionsCase.y); break;
-		case 270: s.setPosition(pos.x, pos.y + scale.y * dimensionsCase.x); break;
+		case 90: s.setPosition(pos.x + scale.x*tailleCase, pos.y); break;
+		case 180: s.setPosition(pos.x + scale.x*tailleCase, pos.y + scale.y*tailleCase); break;
+		case 270: s.setPosition(pos.x, pos.y + scale.y*tailleCase); break;
 		default: break;
 	}
 }
-	
 
-void copieGrille(Grille g, tabTermites T, int tailleCase, sf::Sprite tab[TAILLE][TAILLE], sf::Texture textures[NB_TEXTURES]){
+void dessineGrille(Grille const& g, tabTermites T, int tailleCase, sf::RenderWindow &window, sf::Sprite sprites[NB_TEXTURES], sf::Texture textures[NB_TEXTURES]){
+	sf::Sprite temp;
+	int texture1 = 0;
+	int texture2 = 1;
+	bool dessin = false;
+	
 	for(int i = 0; i < TAILLE; i++)
 		for(int j = 0; j < TAILLE; j++){
-			tab[i][j].setPosition(tailleCase*j, tailleCase*i);
 			if(contientBrindille(g, {i,j})){
-				tab[i][j].setTexture(textures[2]);
-			} else if(numeroTermite(g, {i,j}) != -1){
+				dessin = true;
+				temp = sprites[2];
+				temp.setPosition(tailleCase*j, tailleCase*i);
+			} else if(numeroTermite(g, {i,j}) >= 0){
+				dessin = true;
+				if(porteBrindille(T.tab[numeroTermite(g, {i,j})])){
+					texture1 = 3;
+					texture2 = 4;
+				}
 				switch(directionTermite(T.tab[numeroTermite(g, {i,j})])){
-					case NO:tab[i][j].setTexture(textures[1]);
+					case NO:temp = sprites[texture2];
+							temp.setPosition(tailleCase*j, tailleCase*i);
 							break;
-					case  N:tab[i][j].setTexture(textures[0]);
+					case  N:temp = sprites[texture1];
+							temp.setPosition(tailleCase*j, tailleCase*i);
 							break;
-					case NE:tab[i][j].setTexture(textures[1]);
-							rotation(tab[i][j], 90, tailleCase);
+					case NE:temp = sprites[texture2];
+							temp.setPosition(tailleCase*j, tailleCase*i);
+							rotation(temp, 90, tailleCase);
 							break;
-					case  E:tab[i][j].setTexture(textures[0]);
-							rotation(tab[i][j], 90, tailleCase);
+					case  E:temp = sprites[texture1];
+							temp.setPosition(tailleCase*j, tailleCase*i);
+							rotation(temp, 90, tailleCase);
 							break;
-					case SE:tab[i][j].setTexture(textures[1]);
-							rotation(tab[i][j], 180, tailleCase);
+					case SE:temp = sprites[texture2];
+							temp.setPosition(tailleCase*j, tailleCase*i);
+							rotation(temp, 180, tailleCase);
 							break;
-					case  S:tab[i][j].setTexture(textures[0]);
-							rotation(tab[i][j], 180, tailleCase);
+					case  S:temp = sprites[texture1];
+							temp.setPosition(tailleCase*j, tailleCase*i);
+							rotation(temp, 180, tailleCase);
 							break;
-					case SO:tab[i][j].setTexture(textures[1]);
-							rotation(tab[i][j], 270, tailleCase);
+					case SO:temp = sprites[texture2];
+							temp.setPosition(tailleCase*j, tailleCase*i);
+							rotation(temp, 270, tailleCase);
 							break;
-					case  O:tab[i][j].setTexture(textures[0]);
-							rotation(tab[i][j], 270, tailleCase);
+					case  O:temp = sprites[texture1];
+							temp.setPosition(tailleCase*j, tailleCase*i);
+							rotation(temp, 270, tailleCase);
 							break;
 				}
 			}
-			tab[i][j].setScale(tailleCase/30., tailleCase/30.);
+			if(dessin){
+				temp.setScale(tailleCase/30., tailleCase/30.);
+				window.draw(temp);
+				dessin = false;
+			}
+			texture1 = 0;
+			texture2 = 1;
 		}
 }
 
 
-void initGrille(Grille &g, tabTermites &T){
-    initialiseGrilleVide(g);
+void afficheGrille(Grille g, tabTermites T){
+    system("clear");
+    int b = 0;
     for(int i = 0; i < TAILLE; i++){
         for(int j = 0; j < TAILLE; j++){
-            float nb = rand()%10;
-            nb /= 10;
-            if(nb < DENSITE_BRINDILLE){
-                poseBrindille(g, {i,j});
-            }
-		}
-	}
-	int x, y;
-	
-	while(!estPlein(T)){
-		do{
-			x = rand()%TAILLE;
-			y = rand()%TAILLE;
-		}while(!estVide(g, {x,y}));
-		creeTermite(T, {x,y});
-		poseTermite(g, {x,y}, tailleTableau(T));
-	}
-}
-
-void afficheGrille(Grille g, tabTermites T){    
-    for(int i = 0; i < TAILLE; i++){
-        for(int j = 0; j < TAILLE; j++){
-            if(contientBrindille(g, {i,j}))
+            if(contientBrindille(g, {i,j})){
+				b++;
                 cout << "*";
+			}
             else if(numeroTermite(g, {i,j}) != -1)
                 switch(directionTermite(T.tab[numeroTermite(g, {i,j})])){
                     case N: case S: cout << "|"; break;
@@ -172,14 +152,50 @@ void afficheGrille(Grille g, tabTermites T){
         }
         cout << endl;
     }
+	cout << b << endl;
+}
+
+void initGrille(Grille &g, tabTermites &T){
+    initialiseGrilleVide(g);
+    for(int i = 0; i < TAILLE; i++)
+        for(int j = 0; j < TAILLE; j++){
+            float nb = rand()%10;
+            nb /= 10;
+            if(nb < DENSITE_BRINDILLE){
+                poseBrindille(g, {i,j});
+            } else if(nb < DENSITE_TERMITE){
+                if(!estPlein(T)){
+                    creeTermite(T, {i,j});
+                    poseTermite(g, {i,j}, tailleTableau(T));
+                }
+            }
+        }
+}
+
+void deplacement(Grille &g, tabTermites &T){
+	for(int i = 0; i < tailleTableau(T); i++){
+		modifierSablier(T.tab[i]);
+		if(sablier(T.tab[i]) == 0 && brindilleEnFace(g, T.tab[i])){
+			if(!porteBrindille(T.tab[i]))
+				chargeTermite(g, T.tab[i]);
+			else if(porteBrindille(T.tab[i]) && pasEnferme(g, T.tab[i])){
+				while(!laVoieEstLibre(g, T.tab[i]))
+					tourneADroite(T.tab[i]);
+				dechargeTermite(g, T.tab[i]);
+			}
+			else
+				marcheAleatoire(g, T.tab[i]);
+		} else {
+			marcheAleatoire(g, T.tab[i]);
+		}
+	}
 }
 
 int main(){
-	string const cheminRessources = wdir()+"Ressources/";
-	
 	/* Chargement des textures */
 	sf::Texture tabTextures[NB_TEXTURES];
-	initTextures(tabTextures, cheminRessources);
+	sf::Sprite tabSprites[NB_TEXTURES];
+	initTextures(tabTextures, tabSprites);
 	
 	/* determination de la taille d'une case (en pixel) */
 	int tailleCase = initTaileCase();
@@ -190,36 +206,19 @@ int main(){
     tabVide(tabT);
     Grille g;
     initGrille(g, tabT);
-	sf::Sprite grilleSprite[TAILLE][TAILLE];
-	copieGrille(g, tabT, tailleCase, grilleSprite, tabTextures);
+	int nbPasse = 1;
 	
 	/* Génération des autres objets (bordures, déco, boutons ...) */
-	int tailleFenetre = tailleCase*TAILLE;
+	int const tailleFenetre = tailleCase*TAILLE;
 	
 	sf::RectangleShape separateur(sf::Vector2f(5, tailleFenetre));
 	separateur.setFillColor(sf::Color::Black);
 	separateur.setPosition(tailleFenetre, 0);
 	
-	BoutonTexte passe(sf::Vector2f(tailleFenetre+50, 50), sf::Vector2f(100, 50), "Passe");
-	passe.setTextSize(30);
-	passe.setBold(true);
 	
-	sf::Sprite play_sprite(tabTextures[5]);
-	bool isPlay = true;
-	sf::Sprite pause_sprite(tabTextures[6]);
-	sf::Sprite vitessePlus_sprite(tabTextures[7]);
-	sf::Sprite vitesseMoins_sprite(tabTextures[7]);
-	sf::Sprite test(tabTextures[7]);
-	
-	BoutonImage play(play_sprite), vitessePlus(vitessePlus_sprite), vitesseMoins(vitesseMoins_sprite);
-	play.setPosition(tailleFenetre + (200 - play.getSize().x)/2, 400);
-	vitesseMoins.setPosition(play.getPosition().x - vitesseMoins.getSize().x, play.getPosition().y);
-	vitessePlus.setPosition(play.getPosition().x + play.getSize().x, play.getPosition().y);
-	
-	vitesseMoins.setRotation(90.f);
 	
 	/* ctéation de la fenêtre */
-	sf::RenderWindow fenetre(sf::VideoMode(tailleCase*TAILLE+205, tailleCase*TAILLE), "simulation termites", 5);
+	sf::RenderWindow fenetre(sf::VideoMode(tailleFenetre + 205, tailleFenetre), "simulation termites", 5);
 	fenetre.setVerticalSyncEnabled(false);
 	fenetre.setFramerateLimit(60);
 	
@@ -231,44 +230,34 @@ int main(){
 				case sf::Event::Closed:
 					fenetre.close();
 					break;
-				case sf::Event::MouseButtonPressed:
-					if(passe.contient(event.mouseButton.x, event.mouseButton.y))
-						switch(event.mouseButton.button){
-							case sf::Mouse::Left:
-								rotation(test, 180);
-								break;
-							case sf::Mouse::Right:
-								passe.setText("Clic!");
-								passe.setUnderlined(false);
-								passe.setStrikeThrough(true);
-								passe.setPosition(tailleFenetre+50, 100);
-								break;
-							default: break;
-						}
-					else if(play.contient(event.mouseButton.x, event.mouseButton.y))
-						if(event.mouseButton.button == sf::Mouse::Left){
-							if(isPlay)
-								play.setIcon(pause_sprite);
-							else
-								play.setIcon(play_sprite);
-							isPlay = !isPlay;
-						}
-					break;
+				case sf::Event::KeyPressed:
+					switch(event.key.code){
+						case sf::Keyboard::Q:
+							fenetre.close();
+							break;
+						case sf::Keyboard::Return:
+							for(int i = 0; i < nbPasse; i++)
+								deplacement(g, tabT);
+							break;
+						case sf::Keyboard::Multiply:
+						case sf::Keyboard::Up:
+							if(nbPasse < 1000)
+								nbPasse *= 10;
+							break;
+						case sf::Keyboard::Slash:
+						case sf::Keyboard::Down:
+							if(nbPasse > 1)
+								nbPasse /= 10;
+							break;
+						default: break;
+					}
 				default: break;
 			}
 		}
 		fenetre.clear(sf::Color(217, 160, 48));
 		
-		for(int i = 0; i < TAILLE; i++)
-			for(int j = 0; j < TAILLE; j++)
-				fenetre.draw(grilleSprite[i][j]);
-		
+		dessineGrille(g, tabT, tailleCase, fenetre, tabSprites, tabTextures);
 		fenetre.draw(separateur);
-		fenetre.draw(test);
-		passe.dessiner(fenetre);
-		play.dessiner(fenetre);
-		vitesseMoins.dessiner(fenetre);
-		vitessePlus.dessiner(fenetre);
 		
 		fenetre.display();
 	}
