@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['initialisecasevide',['initialiseCaseVide',['../grille_8hpp.html#a7bb7e1e658bfe0b28a75a7d96ea7ba8b',1,'grille.hpp']]],
-  ['initialisegrillevide',['initialiseGrilleVide',['../grille_8hpp.html#a6294b85199d221d563b61e6803287c4a',1,'grille.hpp']]],
-  ['initstyle',['initStyle',['../classBoutonTexte.html#ab1ffba678bd0b224149859d2925cb49b',1,'BoutonTexte']]]
+  ['lavoieestlibre',['laVoieEstLibre',['../termite_8hpp.html#a6bfa4cb4d641d081921a5b20b40a1399',1,'termite.hpp']]]
 ];

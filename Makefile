@@ -9,8 +9,6 @@ CXX = g++
 CXXFLAGS = -Wall -std=c++11 -g
 # Des options supplémentaires pour la compilation avec la SFML
 SFOPT = -lsfml-graphics -lsfml-window -lsfml-system
-# Le chemin vers le dossier où a lieu la compilation
-DIR = $(dir $(realpath $(firstword $(MAKEFILE_LIST))))
 
 # Les programmes principaux
 ###########################
@@ -33,13 +31,11 @@ coord.o: coord.cpp coord.hpp
 grille.o: grille.cpp grille.hpp coord.hpp
 termite.o: termite.cpp termite.hpp grille.hpp coord.hpp
 gui.o: gui.cpp termite.hpp grille.hpp coord.hpp
-	$(CXX) $(CXXFLAGS) -c gui.cpp  termite.hpp
 
 clean:
 	rm -f projet testgrille testcoord testtermite gui *.o
 fullClean:
 	rm -f projet testgrille testcoord testtermite gui *.o *.gch
-chemin:
-	echo $(DIR)
+
 # Attention dans la ligne ci-dessus il faut Ã©crire
 # un seul caractÃ¨re de tabulation et pas 8 espaces.
