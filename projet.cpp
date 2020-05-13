@@ -45,29 +45,6 @@ void initGrille(Grille &g, tabTermites &T){
         }
 }
 
-void deplacement(Grille &g, tabTermites &T){
-	for(int i = 0; i < tailleTableau(T); i++){
-		modifierSablier(T.tab[i]);
-		if(sablier(T.tab[i]) == 0 && brindilleEnFace(g, T.tab[i])){
-			if(!porteBrindille(T.tab[i]))
-				chargeTermite(g, T.tab[i]);
-			else if(porteBrindille(T.tab[i]) && pasEnferme(g, T.tab[i])){
-				while(!laVoieEstLibre(g, T.tab[i]))
-					tourneADroite(T.tab[i]);
-				dechargeTermite(g, T.tab[i]);
-			}
-			else
-				marcheAleatoire(g, T.tab[i]);
-		} else {
-			if(murEnFace(g, T.tab[i]))
-				T.tab[i].tournerSurPlace = true;
-			else
-				T.tab[i].tournerSurPlace = false;
-			marcheAleatoire(g, T.tab[i]);
-		}
-	}
-}
-
 void simulation(Grille &g, tabTermites &T){
 	char a;
 	int nbPasse = 1;

@@ -214,27 +214,6 @@ void initGrille(Grille &g, tabTermites &T){
         }
 }
 
-void deplacement(Grille &g, tabTermites &T){
-	for(int i = 0; i < tailleTableau(T); i++){
-		modifierSablier(T.tab[i]);
-		if(sablier(T.tab[i]) == 0 && brindilleEnFace(g, T.tab[i])){
-			if(!porteBrindille(T.tab[i]))
-				chargeTermite(g, T.tab[i]);
-			else if(porteBrindille(T.tab[i]) && pasEnferme(g, T.tab[i])){
-				while(!laVoieEstLibre(g, T.tab[i]))
-					tourneADroite(T.tab[i]);
-				dechargeTermite(g, T.tab[i]);
-			}
-			else
-				marcheAleatoire(g, T.tab[i]);
-		} else {
-			if(murEnFace(g, T.tab[i]))
-				T.tab[i].tournerSurPlace = true;
-			marcheAleatoire(g, T.tab[i]);
-		}
-	}
-}
-
 int main(){
 	/* Chargement des textures */
 	sf::Texture tabTextures[NB_TEXTURES];
@@ -318,16 +297,14 @@ int main(){
 							break;
 						case sf::Keyboard::Multiply:
 						case sf::Keyboard::Up:
-							if(nbPasse < 1000){
-								nbPasse *= 10;
-								texteVitesse.setString(vitesse + to_string(nbPasse));
-								centrerTexte(texteVitesse, hauteurFenetre, largeurFenetre, 0, hauteurFenetre);
-							}
+							nbPasse *= 2;
+							texteVitesse.setString(vitesse + to_string(nbPasse));
+							centrerTexte(texteVitesse, hauteurFenetre, largeurFenetre, 0, hauteurFenetre);
 							break;
 						case sf::Keyboard::Slash:
 						case sf::Keyboard::Down:
 							if(nbPasse > 1){
-								nbPasse /= 10;
+								nbPasse /= 2;
 								texteVitesse.setString(vitesse + to_string(nbPasse));
 								centrerTexte(texteVitesse, hauteurFenetre, largeurFenetre, 0, hauteurFenetre);
 							}
@@ -345,11 +322,6 @@ int main(){
 							break;
 						case sf::Keyboard::L:
 							logTailleTas = !logTailleTas;
-							break;
-						case sf::Keyboard::S:
-							screenshot.create(fenetre.getSize().x, fenetre.getSize().y);
-							screenshot.update(fenetre);
-							screenshot.copyToImage().saveToFile("screen.png");
 							break;
 						default: break;
 					}

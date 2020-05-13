@@ -18,7 +18,7 @@ void creeTermite(tabTermites &T, Coord c){
     nouv.position = c;
     nouv.direction = Direction(rand()%8);
     nouv.charge = false;
-	nouv.tournerSurPlace = false;
+	nouv.tournerSurPlace = 0;
 	nouv.sablier = 0;
     
     T.tab[T.taille] = nouv;
@@ -95,9 +95,10 @@ void marcheAleatoire(Grille &g, Termite &t){
     if(d > 0 && laVoieEstLibre(g, t))
         avanceTermite(g, t);
     else{
-		if(t.tournerSurPlace)
-			for(int i = 0; i < 3; i++)
-				tourneADroite(t);
+		if(t.tournerSurPlace){
+			tourneADroite(t);
+			t.tournerSurPlace--;
+		}
 		else
 			tourneAleat(t);
 	}
@@ -110,4 +111,25 @@ void modifierSablier(Termite &t){
 
 int sablier(Termite t){
 	return t.sablier;
+}
+
+void deplacement(Grille &g, tabTermites &T){
+	for(int i = 0; i < tailleTableau(T); i++){
+		modifierSablier(T.tab[i]);
+		if(sablier(T.tab[i]) == 0 && brindilleEnFace(g, T.tab[i])){
+			if(!porteBrindille(T.tab[i]))
+				chargeTermite(g, T.tab[i]);
+			else if(porteBrindille(T.tab[i]) && pasEnferme(g, T.tab[i])){
+				while(!laVoieEstLibre(g, T.tab[i]))
+					tourneADroite(T.tab[i]);
+				dechargeTermite(g, T.tab[i]);
+			}
+			else
+				marcheAleatoire(g, T.tab[i]);
+		} else {
+			if(T.tab[i].tournerSurPlace == 0 && murEnFace(g, T.tab[i]))
+				T.tab[i].tournerSurPlace = 4;
+			marcheAleatoire(g, T.tab[i]);
+		}
+	}
 }

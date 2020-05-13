@@ -6,7 +6,7 @@ struct Termite{
     Coord position;
     Direction direction;
     bool charge;
-	bool tournerSurPlace;
+	int tournerSurPlace;
 	int sablier;
 };
 
@@ -127,3 +127,9 @@ void marcheAleatoire(Grille &g, Termite &t);
 void modifierSablier(Termite &t);
 
 int sablier(Termite t);
+
+/** Gère les déplacements de tous les termites de la simulation
+ * @param [in/out] g: la grille de jeu
+ * @param [in/out] T: le tableau contenant les termites de la simulation
+ **/
+void deplacement(Grille &g, tabTermites &T);
