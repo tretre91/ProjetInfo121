@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['grille',['Grille',['../structGrille.html',1,'']]]
+  ['tabtermites',['tabTermites',['../structtabTermites.html',1,'']]],
+  ['termite',['Termite',['../structTermite.html',1,'']]]
 ];

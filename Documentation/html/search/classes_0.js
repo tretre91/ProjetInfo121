@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['bouton',['Bouton',['../classBouton.html',1,'']]],
-  ['boutontexte',['BoutonTexte',['../classBoutonTexte.html',1,'']]]
+  ['case',['Case',['../structCase.html',1,'']]],
+  ['coord',['Coord',['../structCoord.html',1,'']]]
 ];

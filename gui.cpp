@@ -51,6 +51,10 @@ int initTaileCase(){
 	return tailleCase;
 }
 
+void centrerTexte(sf::Text &texte, uint lmin, uint lmax, uint hmin, uint hmax){
+	texte.setPosition(lmin + (lmax - lmin - texte.getGlobalBounds().width)/2, hmin + (hmax - hmin - texte.getGlobalBounds().height)/2);
+}
+
 /** Permet de faire tourner un sprite de 90,180 ou 270°
  * @param [in/out] s: le sprite à modifier
  * @param [in] angle: l'angle souhaité pour le sprite
@@ -129,6 +133,44 @@ void dessineGrille(Grille const& g, tabTermites T, int tailleCase, sf::RenderWin
 		}
 }
 
+bool contient(Coord c, vector<Coord> const& tab){
+	for(uint i = 0; i < tab.size(); i++)
+		if(egalCoord(tab[i], c)) return true;
+	return false;
+}
+
+void tas(Grille const& g, Coord depart, vector<Coord> &explores){
+	explores.push_back(depart);
+	
+	Coord voisins[4];
+	voisins[0] = {getX(depart) + 1, getY(depart)};
+	voisins[1] = {getX(depart) - 1, getY(depart)};
+	voisins[2] = {getX(depart), getY(depart) + 1};
+	voisins[3] = {getX(depart), getY(depart) - 1};
+	
+	for(int i = 0; i < 4; i++)
+		if(!contient(voisins[i], explores) && contientBrindille(g, voisins[i]))
+			tas(g, voisins[i], explores);
+	return;
+}
+
+int tailleMaxTas(Grille g){
+	int tailleTas = 0, max = 0, taillePrecedente = 0;
+	vector<Coord> parcourus;
+	
+	for(int i = 0; i < TAILLE; i++){
+		for(int j = 0; j < TAILLE; j++){
+			if(!contient({i,j}, parcourus) && contientBrindille(g, {i,j})){
+				tas(g, {i,j}, parcourus);
+				tailleTas = parcourus.size() - taillePrecedente;
+				taillePrecedente = parcourus.size();
+				if(tailleTas > max)
+					max = tailleTas;
+			}
+		}
+	}
+	return max;
+}
 
 void afficheGrille(Grille g, tabTermites T){
     system("clear");
@@ -208,19 +250,45 @@ int main(){
     tabVide(tabT);
     Grille g;
     initGrille(g, tabT);
+	
+	/* initialisation des variables nécessiars à l'interaction utilisateur */
 	int nbPasse = 1;
+	bool passeAuto = false;
+	int tailleTas = 0;
+	int maxTailleTas = 0;
+	bool verifTailleTas = false;
+	bool logTailleTas = true;
+	sf::Texture screenshot;
 	
 	/* Génération des autres objets (bordures, déco, boutons ...) */
-	int const tailleFenetre = tailleCase*TAILLE;
+	int const hauteurFenetre = tailleCase*TAILLE;
+	int const largeurFenetre = hauteurFenetre + 250;
 	
-	sf::RectangleShape separateur(sf::Vector2f(5, tailleFenetre));
+	sf::RectangleShape separateur(sf::Vector2f(5, hauteurFenetre));
 	separateur.setFillColor(sf::Color::Black);
-	separateur.setPosition(tailleFenetre, 0);
+	separateur.setPosition(hauteurFenetre, 0);
 	
+	sf::Font arial;
+	if(!arial.loadFromFile("Ressources/arial.ttf"))
+		cout << "Impossible de charger la police arial.ttf";
 	
+	string const vitesse = "Vitesse : x";
+	sf::Text texteVitesse("", arial, 25);
+	texteVitesse.setString(vitesse + to_string(nbPasse));
+	centrerTexte(texteVitesse, hauteurFenetre, largeurFenetre, 0, hauteurFenetre);
 	
-	/* ctéation de la fenêtre */
-	sf::RenderWindow fenetre(sf::VideoMode(tailleFenetre + 205, tailleFenetre), "simulation termites", 5);
+	sf::Text texteMode("Mode : Manuel", arial, 25);
+	centrerTexte(texteMode, hauteurFenetre, largeurFenetre, 5, 5);
+	
+	string const t_tailleTas = "Taille du plus \n gros tas : ";
+	sf::Text texteTailleTas("Taille du plus \n gros tas : 0", arial, 25);
+	centrerTexte(texteTailleTas, hauteurFenetre, largeurFenetre, hauteurFenetre - 70, hauteurFenetre - 70);
+	
+	sf::Text texteMaxTailleTas("Max : 0 brindilles", arial, 25);
+	centrerTexte(texteMaxTailleTas, hauteurFenetre, largeurFenetre, hauteurFenetre - 25, hauteurFenetre - 25);
+	
+	/* création de la fenêtre */
+	sf::RenderWindow fenetre(sf::VideoMode(largeurFenetre, hauteurFenetre), "simulation termites", 5);
 	fenetre.setVerticalSyncEnabled(false);
 	fenetre.setFramerateLimit(60);
 	
@@ -238,18 +306,50 @@ int main(){
 							fenetre.close();
 							break;
 						case sf::Keyboard::Return:
-							for(int i = 0; i < nbPasse; i++)
-								deplacement(g, tabT);
+							if(!passeAuto)
+								for(int i = 0; i < nbPasse; i++){
+									deplacement(g, tabT);
+									if(logTailleTas){
+										tailleTas = tailleMaxTas(g);
+										if(tailleTas > maxTailleTas)
+											maxTailleTas = tailleTas;
+									}
+								}
 							break;
 						case sf::Keyboard::Multiply:
 						case sf::Keyboard::Up:
-							if(nbPasse < 1000)
+							if(nbPasse < 1000){
 								nbPasse *= 10;
+								texteVitesse.setString(vitesse + to_string(nbPasse));
+								centrerTexte(texteVitesse, hauteurFenetre, largeurFenetre, 0, hauteurFenetre);
+							}
 							break;
 						case sf::Keyboard::Slash:
 						case sf::Keyboard::Down:
-							if(nbPasse > 1)
+							if(nbPasse > 1){
 								nbPasse /= 10;
+								texteVitesse.setString(vitesse + to_string(nbPasse));
+								centrerTexte(texteVitesse, hauteurFenetre, largeurFenetre, 0, hauteurFenetre);
+							}
+							break;
+						case sf::Keyboard::A:
+							passeAuto = !passeAuto;
+							if(passeAuto)
+								texteMode.setString("Mode : Automatique");
+							else
+								texteMode.setString("Mode : Manuel");
+							centrerTexte(texteMode, hauteurFenetre, largeurFenetre, 5, 5);
+							break;
+						case sf::Keyboard::M:
+							verifTailleTas = !verifTailleTas;
+							break;
+						case sf::Keyboard::L:
+							logTailleTas = !logTailleTas;
+							break;
+						case sf::Keyboard::S:
+							screenshot.create(fenetre.getSize().x, fenetre.getSize().y);
+							screenshot.update(fenetre);
+							screenshot.copyToImage().saveToFile("screen.png");
 							break;
 						default: break;
 					}
@@ -258,8 +358,28 @@ int main(){
 		}
 		fenetre.clear(sf::Color(217, 160, 48));
 		
+		if(passeAuto)
+			for(int i = 0; i < nbPasse; i++){
+				deplacement(g, tabT);
+				if(logTailleTas){
+					tailleTas = tailleMaxTas(g);
+					if(tailleTas > maxTailleTas)
+						maxTailleTas = tailleTas;
+				}
+			}
+		
 		dessineGrille(g, tabT, tailleCase, fenetre, tabSprites, tabTextures);
 		fenetre.draw(separateur);
+		fenetre.draw(texteVitesse);
+		fenetre.draw(texteMode);
+		if(logTailleTas){
+			texteMaxTailleTas.setString("Max : " + to_string(maxTailleTas) + " brindilles");
+			fenetre.draw(texteMaxTailleTas);
+			if(verifTailleTas){
+				texteTailleTas.setString(t_tailleTas + to_string(tailleTas));
+				fenetre.draw(texteTailleTas);
+			}
+		}
 		
 		fenetre.display();
 	}
