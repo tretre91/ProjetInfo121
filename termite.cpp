@@ -18,6 +18,7 @@ void creeTermite(tabTermites &T, Coord c){
     nouv.position = c;
     nouv.direction = Direction(rand()%8);
     nouv.charge = false;
+	nouv.tournerSurPlace = false;
 	nouv.sablier = 0;
     
     T.tab[T.taille] = nouv;
@@ -57,6 +58,10 @@ bool brindilleEnFace(Grille g, Termite t){
     return contientBrindille(g, devantTermite(t));
 }
 
+bool murEnFace(Grille g, Termite t){
+	return !dansGrille(g, devantTermite(t));
+}
+
 bool pasEnferme(Grille g, Termite t){
     int casesVides = 0;
     for(int i = 0; i < 8; i++){
@@ -89,8 +94,13 @@ void marcheAleatoire(Grille &g, Termite &t){
     int d = rand()%10;
     if(d > 0 && laVoieEstLibre(g, t))
         avanceTermite(g, t);
-    else
-        tourneAleat(t);
+    else{
+		if(t.tournerSurPlace)
+			for(int i = 0; i < 3; i++)
+				tourneADroite(t);
+		else
+			tourneAleat(t);
+	}
 }
 
 void modifierSablier(Termite &t){

@@ -8,11 +8,9 @@ const float DENSITE_BRINDILLE = 0.2;
 
 void afficheGrille(Grille g, tabTermites T){
     system("clear");
-    int b = 0;
     for(int i = 0; i < TAILLE; i++){
         for(int j = 0; j < TAILLE; j++){
             if(contientBrindille(g, {i,j})){
-				b++;
                 cout << "*";
 			}
             else if(numeroTermite(g, {i,j}) != -1)
@@ -28,7 +26,6 @@ void afficheGrille(Grille g, tabTermites T){
         }
         cout << endl;
     }
-	cout << b << endl;
 }
 
 void initGrille(Grille &g, tabTermites &T){
@@ -62,6 +59,10 @@ void deplacement(Grille &g, tabTermites &T){
 			else
 				marcheAleatoire(g, T.tab[i]);
 		} else {
+			if(murEnFace(g, T.tab[i]))
+				T.tab[i].tournerSurPlace = true;
+			else
+				T.tab[i].tournerSurPlace = false;
 			marcheAleatoire(g, T.tab[i]);
 		}
 	}
@@ -70,17 +71,24 @@ void deplacement(Grille &g, tabTermites &T){
 void simulation(Grille &g, tabTermites &T){
 	char a;
 	int nbPasse = 1;
+	int modif = 1;
 	while(true){
+		if(modif > 0)
+			modif--;
 		a = getchar();
 		switch(a){
 			case 'q': return;
-			case '*': if(nbPasse < 1000) nbPasse *= 10; break;
-			case '/': if(nbPasse > 1) nbPasse /= 10; break;
+			case '*': nbPasse *= 2; modif = 2; break;
+			case '/': if(nbPasse > 1) nbPasse /= 2; modif = 2; break;
 			default: break;
 		}
-		for(int i = 0; i < nbPasse; i++)
-			deplacement(g, T);
-		afficheGrille(g, T);
+		
+		if(!modif){
+			for(int i = 0; i < nbPasse; i++)
+				deplacement(g, T);
+			afficheGrille(g, T);
+		}
+		
 		cout << "Vitesse x" << nbPasse << endl;
 	}
 }

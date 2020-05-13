@@ -6,6 +6,7 @@ struct Termite{
     Coord position;
     Direction direction;
     bool charge;
+	bool tournerSurPlace;
 	int sablier;
 };
 
@@ -86,6 +87,8 @@ bool laVoieEstLibre(Grille g, Termite t);
  * @return true si la case en face du termite contient une brindille
  **/
 bool brindilleEnFace(Grille g, Termite t);
+
+bool murEnFace(Grille g, Termite t);
 
 /** Vérifie si un termite ne s'enferme pas s'il pose une brindille en face de lui
  * @param [in] g la grille de jeu

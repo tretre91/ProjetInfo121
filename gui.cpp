@@ -186,6 +186,8 @@ void deplacement(Grille &g, tabTermites &T){
 			else
 				marcheAleatoire(g, T.tab[i]);
 		} else {
+			if(murEnFace(g, T.tab[i]))
+				T.tab[i].tournerSurPlace = true;
 			marcheAleatoire(g, T.tab[i]);
 		}
 	}
