@@ -1,10 +1,7 @@
-#include "termite.hpp"
+#include "autres.hpp"
 #include <iostream>
 #include <cstdlib>
 using  namespace std;
-
-const float DENSITE_TERMITE = 0.25;
-const float DENSITE_BRINDILLE = 0.2;
 
 void afficheGrille(Grille g, tabTermites T){
     system("clear");
@@ -26,23 +23,6 @@ void afficheGrille(Grille g, tabTermites T){
         }
         cout << endl;
     }
-}
-
-void initGrille(Grille &g, tabTermites &T){
-    initialiseGrilleVide(g);
-    for(int i = 0; i < TAILLE; i++)
-        for(int j = 0; j < TAILLE; j++){
-            float nb = rand()%10;
-            nb /= 10;
-            if(nb < DENSITE_BRINDILLE){
-                poseBrindille(g, {i,j});
-            } else if(nb < DENSITE_TERMITE){
-                if(!estPlein(T)){
-                    creeTermite(T, {i,j});
-                    poseTermite(g, {i,j}, tailleTableau(T));
-                }
-            }
-        }
 }
 
 void simulation(Grille &g, tabTermites &T){

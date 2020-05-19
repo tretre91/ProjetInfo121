@@ -78,14 +78,14 @@ void tourneAleat(Termite &t);
 
 
 /** Vérifie si la case en face d'un termite est vide
- * @param [in] g la grille de jeu
+ * @param [in] g: la grille contenant les termites et les brindilles
  * @param [in] t un termite
  * @return true si la case en face du termite est vide
  **/
 bool laVoieEstLibre(Grille g, Termite t);
 
 /** Vérifie si la case en face d'un termite contient une brindille
- * @param [in] g la grille de jeu
+ * @param [in] g: la grille contenant les termites et les brindilles
  * @param [in] t un termite
  * @return true si la case en face du termite contient une brindille
  **/
@@ -94,7 +94,7 @@ bool brindilleEnFace(Grille g, Termite t);
 bool murEnFace(Grille g, Termite t);
 
 /** Vérifie si un termite ne s'enferme pas s'il pose une brindille en face de lui
- * @param [in] g la grille de jeu
+ * @param [in] g: la grille contenant les termites et les brindilles
  * @param [in] t un termite
  * @return true si le termite ne peut pas s'enfermer (càd si il y a au moins 2 cases libres
  *     autour de lui avant le depôt de sa brindille
@@ -104,25 +104,25 @@ bool pasEnferme(Grille g, Termite t);
 
 
 /** Permet de faire avancer un termite sur la case en face de lui
- * @param [in/out] g la grille de jeu
+ * @param [in/out] g: la grille contenant les termites et les brindilles
  * @param [in/out] t le termite à faire avancer
  **/
 void avanceTermite(Grille &g, Termite &t);
 
 /** Permet a un termite qui porte une brindille de la déposer (la case devant lui est supposée vide)
- * @param [in/out] g la grille de jeu
+ * @param [in/out] g: la grille contenant les termites et les brindilles
  * @param [in/out] t le termite que l'on souhaite débarrasser de sa brindille
  **/
 void dechargeTermite(Grille &g, Termite &t);
 
 /** Permet a un termite de rammasser une brindille (la case devant lui est supposée en contenir une)
- * @param [in/out] g la grille de jeu
+ * @param [in/out] g: la grille contenant les termites et les brindilles
  * @param [in/out] t le termite que l'on souhaite charger
  **/
 void chargeTermite(Grille &g, Termite &t);
 
 /** Permet de déplacer aléatoirement le termite
- * @param [in/out] g la grille de jeu
+ * @param [in/out] g: la grille contenant les termites et les brindilles
  * @param [in/out] t le termite que l'on souhaite déplacer
  **/
 void marcheAleatoire(Grille &g, Termite &t);
@@ -130,11 +130,5 @@ void marcheAleatoire(Grille &g, Termite &t);
 void modifierSablier(Termite &t);
 
 int sablier(Termite t);
-
-/** Gère les déplacements de tous les termites de la simulation
- * @param [in/out] g: la grille de jeu
- * @param [in/out] T: le tableau contenant les termites de la simulation
- **/
-void deplacement(Grille &g, tabTermites &T);
 
 #endif
