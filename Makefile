@@ -14,12 +14,12 @@ SFOPT = -lsfml-graphics -lsfml-window -lsfml-system
 ###########################
 # On donne le fichier .cpp et la liste des fichiers .o qu'ils utilisent
 
-projet: projet.cpp coord.o grille.o termite.o # Ã  complÃ©ter...
+projet: projet.cpp coord.o grille.o termite.o autres.o # Ã  complÃ©ter...
 testcoord: testcoord.cpp coord.o
 testgrille: testgrille.cpp grille.o coord.o
 testtermite: testtermite.cpp termite.o grille.o coord.o
-gui: gui.cpp gui.o termite.o grille.o coord.o
-	$(CXX) $(CXXFLAGS) gui.o termite.o grille.o coord.o -o gui $(SFOPT)
+gui: gui.cpp gui.o autres.o termite.o grille.o coord.o
+	$(CXX) $(CXXFLAGS) gui.o autres.o termite.o grille.o coord.o -o gui $(SFOPT)
 # Ã  complÃ©ter...
 
 # Les diffÃ©rents composants
@@ -30,6 +30,7 @@ gui: gui.cpp gui.o termite.o grille.o coord.o
 coord.o: coord.cpp coord.hpp
 grille.o: grille.cpp grille.hpp coord.hpp
 termite.o: termite.cpp termite.hpp grille.hpp coord.hpp
+autres.o: autres.cpp autres.hpp termite.hpp grille.hpp coord.hpp
 gui.o: gui.cpp termite.hpp grille.hpp coord.hpp
 
 clean:

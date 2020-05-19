@@ -112,24 +112,3 @@ void modifierSablier(Termite &t){
 int sablier(Termite t){
 	return t.sablier;
 }
-
-void deplacement(Grille &g, tabTermites &T){
-	for(int i = 0; i < tailleTableau(T); i++){
-		modifierSablier(T.tab[i]);
-		if(sablier(T.tab[i]) == 0 && brindilleEnFace(g, T.tab[i])){
-			if(!porteBrindille(T.tab[i]))
-				chargeTermite(g, T.tab[i]);
-			else if(porteBrindille(T.tab[i]) && pasEnferme(g, T.tab[i])){
-				while(!laVoieEstLibre(g, T.tab[i]))
-					tourneADroite(T.tab[i]);
-				dechargeTermite(g, T.tab[i]);
-			}
-			else
-				marcheAleatoire(g, T.tab[i]);
-		} else {
-			if(T.tab[i].tournerSurPlace == 0 && murEnFace(g, T.tab[i]))
-				T.tab[i].tournerSurPlace = 4;
-			marcheAleatoire(g, T.tab[i]);
-		}
-	}
-}

@@ -2,11 +2,9 @@
 #include <string>
 #include <iostream>
 #include <cstdlib>
-#include "termite.hpp"
+#include "autres.hpp"
 using namespace std;
 
-const float DENSITE_TERMITE = 0.25;
-const float DENSITE_BRINDILLE = 0.2;
 const int NB_TEXTURES = 5;
 
 /** Permet de charger les textures nécessaires à la simulation (grille et ui)
@@ -133,87 +131,6 @@ void dessineGrille(Grille const& g, tabTermites T, int tailleCase, sf::RenderWin
 		}
 }
 
-bool contient(Coord c, vector<Coord> const& tab){
-	for(uint i = 0; i < tab.size(); i++)
-		if(egalCoord(tab[i], c)) return true;
-	return false;
-}
-
-void tas(Grille const& g, Coord depart, vector<Coord> &explores){
-	explores.push_back(depart);
-	
-	Coord voisins[4];
-	voisins[0] = {getX(depart) + 1, getY(depart)};
-	voisins[1] = {getX(depart) - 1, getY(depart)};
-	voisins[2] = {getX(depart), getY(depart) + 1};
-	voisins[3] = {getX(depart), getY(depart) - 1};
-	
-	for(int i = 0; i < 4; i++)
-		if(!contient(voisins[i], explores) && contientBrindille(g, voisins[i]))
-			tas(g, voisins[i], explores);
-	return;
-}
-
-int tailleMaxTas(Grille g){
-	int tailleTas = 0, max = 0, taillePrecedente = 0;
-	vector<Coord> parcourus;
-	
-	for(int i = 0; i < TAILLE; i++){
-		for(int j = 0; j < TAILLE; j++){
-			if(!contient({i,j}, parcourus) && contientBrindille(g, {i,j})){
-				tas(g, {i,j}, parcourus);
-				tailleTas = parcourus.size() - taillePrecedente;
-				taillePrecedente = parcourus.size();
-				if(tailleTas > max)
-					max = tailleTas;
-			}
-		}
-	}
-	return max;
-}
-
-void afficheGrille(Grille g, tabTermites T){
-    system("clear");
-    int b = 0;
-    for(int i = 0; i < TAILLE; i++){
-        for(int j = 0; j < TAILLE; j++){
-            if(contientBrindille(g, {i,j})){
-				b++;
-                cout << "*";
-			}
-            else if(numeroTermite(g, {i,j}) != -1)
-                switch(directionTermite(T.tab[numeroTermite(g, {i,j})])){
-                    case N: case S: cout << "|"; break;
-                    case NE: case SO: cout << "/"; break;
-                    case E: case O: cout << "-"; break;
-                    case SE: case NO: cout << "\\"; break;
-                }
-            else 
-                cout << " ";
-            cout << " ";
-        }
-        cout << endl;
-    }
-	cout << b << endl;
-}
-
-void initGrille(Grille &g, tabTermites &T){
-    initialiseGrilleVide(g);
-    for(int i = 0; i < TAILLE; i++)
-        for(int j = 0; j < TAILLE; j++){
-            float nb = rand()%10;
-            nb /= 10;
-            if(nb < DENSITE_BRINDILLE){
-                poseBrindille(g, {i,j});
-            } else if(nb < DENSITE_TERMITE){
-                if(!estPlein(T)){
-                    creeTermite(T, {i,j});
-                    poseTermite(g, {i,j}, tailleTableau(T));
-                }
-            }
-        }
-}
-
 int main(){
 	/* Chargement des textures */
 	sf::Texture tabTextures[NB_TEXTURES];
@@ -228,7 +145,10 @@ int main(){
     tabTermites tabT;
     tabVide(tabT);
     Grille g;
-    initGrille(g, tabT);
+	const int maxBrindilles = initGrille(g, tabT);
+    Coord grosTas[maxBrindilles];
+	for(int i = 0; i < maxBrindilles; i++)
+		grosTas[i] = {-1, -1};
 	
 	/* initialisation des variables nécessiars à l'interaction utilisateur */
 	int nbPasse = 1;
@@ -239,8 +159,8 @@ int main(){
 	bool logTailleTas = true;
 	
 	/* Génération des autres objets (bordures, déco, boutons ...) */
-	int const hauteurFenetre = tailleCase*TAILLE;
-	int const largeurFenetre = hauteurFenetre + 250;
+	const int hauteurFenetre = tailleCase*TAILLE;
+	const int largeurFenetre = hauteurFenetre + 250;
 	
 	sf::RectangleShape separateur(sf::Vector2f(5, hauteurFenetre));
 	separateur.setFillColor(sf::Color::Black);
@@ -286,9 +206,9 @@ int main(){
 						case sf::Keyboard::Return:
 							if(!passeAuto)
 								for(int i = 0; i < nbPasse; i++){
-									deplacement(g, tabT);
+									deplacement(g, tabT, maxBrindilles, grosTas);
 									if(logTailleTas){
-										tailleTas = tailleMaxTas(g);
+										tailleTas = tailleMaxTas(g, maxBrindilles, grosTas);
 										if(tailleTas > maxTailleTas)
 											maxTailleTas = tailleTas;
 									}
@@ -341,9 +261,9 @@ int main(){
 		
 		if(passeAuto)
 			for(int i = 0; i < nbPasse; i++){
-				deplacement(g, tabT);
+				deplacement(g, tabT, maxBrindilles, grosTas);
 				if(logTailleTas){
-					tailleTas = tailleMaxTas(g);
+					tailleTas = tailleMaxTas(g, maxBrindilles, grosTas);
 					if(tailleTas > maxTailleTas)
 						maxTailleTas = tailleTas;
 				}
