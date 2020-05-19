@@ -1,3 +1,6 @@
+#ifndef DEF_GRILLE
+#define DEF_GRILLE
+
 #include "coord.hpp"
 
 const int TAILLE = 20;
@@ -73,4 +76,4 @@ void poseTermite(Grille &g, Coord c, int numTermite);
  **/
 void enleveTermite(Grille &g, Coord c);
 
-
+#endif

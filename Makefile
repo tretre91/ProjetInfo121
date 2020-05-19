@@ -6,7 +6,7 @@
 # Le compilateur Ã  utiliser
 CXX = g++
 # Les options du compilateur
-CXXFLAGS = -Wall -std=c++11 -g
+CXXFLAGS = -Wall -std=c++11 -g -O3
 # Des options supplémentaires pour la compilation avec la SFML
 SFOPT = -lsfml-graphics -lsfml-window -lsfml-system
 

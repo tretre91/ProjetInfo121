@@ -58,4 +58,3 @@ void enleveTermite(Grille &g, Coord c){
     if(dansGrille(g, c) && numeroTermite(g, c) != -1)
         g.t[getX(c)][getY(c)].contenu = -1;
 }
-

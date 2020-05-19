@@ -237,7 +237,6 @@ int main(){
 	int maxTailleTas = 0;
 	bool verifTailleTas = false;
 	bool logTailleTas = true;
-	sf::Texture screenshot;
 	
 	/* Génération des autres objets (bordures, déco, boutons ...) */
 	int const hauteurFenetre = tailleCase*TAILLE;
@@ -322,6 +321,16 @@ int main(){
 							break;
 						case sf::Keyboard::L:
 							logTailleTas = !logTailleTas;
+							break;
+						case sf::Keyboard::C:
+							tabVide(tabT);
+							initGrille(g, tabT);
+							nbPasse = 1;
+							passeAuto = false;
+							tailleTas = 0;
+							maxTailleTas = 0;
+							texteVitesse.setString(vitesse + to_string(nbPasse));
+							centrerTexte(texteVitesse, hauteurFenetre, largeurFenetre, 0, hauteurFenetre);
 							break;
 						default: break;
 					}

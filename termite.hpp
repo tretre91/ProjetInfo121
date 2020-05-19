@@ -1,3 +1,6 @@
+#ifndef DEF_TERMITE
+#define DEF_TERMITE
+
 #include "grille.hpp"
 #include <cstdlib>
 
@@ -133,3 +136,5 @@ int sablier(Termite t);
  * @param [in/out] T: le tableau contenant les termites de la simulation
  **/
 void deplacement(Grille &g, tabTermites &T);
+
+#endif

@@ -1,3 +1,6 @@
+#ifndef DEF_COORD
+#define DEF_COORD
+
 struct Coord{
     int ligne, colonne;
 };
@@ -59,3 +62,5 @@ Direction aGauche(Direction dir);
  *         à partir de c
  **/ 
 Coord devantCoord(Coord c, Direction dir);
+
+#endif
