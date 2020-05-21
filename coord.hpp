@@ -63,4 +63,4 @@ Direction aGauche(Direction dir);
  **/ 
 Coord devantCoord(Coord c, Direction dir);
 
-#endif
+#endif // DEF_COORD

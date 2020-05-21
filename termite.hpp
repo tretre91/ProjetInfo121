@@ -131,4 +131,4 @@ void modifierSablier(Termite &t);
 
 int sablier(Termite t);
 
-#endif
+#endif // DEF_TERMITE

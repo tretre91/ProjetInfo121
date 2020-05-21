@@ -1,4 +1,4 @@
-#include "autres.hpp"
+#include "simulation.hpp"
 
 bool tabContient(Coord c, int const& taille, Coord tab[]){
 	for(int i = 0; i < taille; i++){
@@ -6,6 +6,27 @@ bool tabContient(Coord c, int const& taille, Coord tab[]){
 		if(egalCoord(tab[i], c)) return true;
 	}
 	return false;
+}
+
+void deplacement(Grille &g, tabTermites &T){
+	for(int i = 0; i < tailleTableau(T); i++){
+		modifierSablier(T.tab[i]);
+		if(sablier(T.tab[i]) == 0 && brindilleEnFace(g, T.tab[i])){
+			if(!porteBrindille(T.tab[i]))
+				chargeTermite(g, T.tab[i]);
+			else if(porteBrindille(T.tab[i]) && pasEnferme(g, T.tab[i])){
+				while(!laVoieEstLibre(g, T.tab[i]))
+					tourneADroite(T.tab[i]);
+				dechargeTermite(g, T.tab[i]);
+			}
+			else
+				marcheAleatoire(g, T.tab[i]);
+		} else {
+			if(T.tab[i].tournerSurPlace == 0 && murEnFace(g, T.tab[i]))
+				T.tab[i].tournerSurPlace = 4;
+			marcheAleatoire(g, T.tab[i]);
+		}
+	}
 }
 
 void deplacement(Grille &g, tabTermites &T, int const& nbBrindilles, Coord coordTas[]){

@@ -76,4 +76,4 @@ void poseTermite(Grille &g, Coord c, int numTermite);
  **/
 void enleveTermite(Grille &g, Coord c);
 
-#endif
+#endif // DEF_GRILLE

@@ -6,7 +6,7 @@
 # Le compilateur Ã  utiliser
 CXX = g++
 # Les options du compilateur
-CXXFLAGS = -Wall -std=c++11 -g -O3
+CXXFLAGS = -Wall -std=c++11 -g
 # Des options supplémentaires pour la compilation avec la SFML
 SFOPT = -lsfml-graphics -lsfml-window -lsfml-system
 
@@ -14,12 +14,14 @@ SFOPT = -lsfml-graphics -lsfml-window -lsfml-system
 ###########################
 # On donne le fichier .cpp et la liste des fichiers .o qu'ils utilisent
 
-projet: projet.cpp coord.o grille.o termite.o autres.o # Ã  complÃ©ter...
+all: projet_gui projet testcoord testgrille testtermite
+
+projet: projet.cpp simulation.o termite.o grille.o coord.o # Ã  complÃ©ter...
 testcoord: testcoord.cpp coord.o
 testgrille: testgrille.cpp grille.o coord.o
 testtermite: testtermite.cpp termite.o grille.o coord.o
-gui: gui.cpp gui.o autres.o termite.o grille.o coord.o
-	$(CXX) $(CXXFLAGS) gui.o autres.o termite.o grille.o coord.o -o gui $(SFOPT)
+projet_gui: projet_gui.cpp gui.o simulation.o termite.o grille.o coord.o
+	$(CXX) $(CXXFLAGS) projet_gui.cpp gui.o simulation.o termite.o grille.o coord.o -o projet_gui $(SFOPT)
 # Ã  complÃ©ter...
 
 # Les diffÃ©rents composants
@@ -30,13 +32,13 @@ gui: gui.cpp gui.o autres.o termite.o grille.o coord.o
 coord.o: coord.cpp coord.hpp
 grille.o: grille.cpp grille.hpp coord.hpp
 termite.o: termite.cpp termite.hpp grille.hpp coord.hpp
-autres.o: autres.cpp autres.hpp termite.hpp grille.hpp coord.hpp
-gui.o: gui.cpp termite.hpp grille.hpp coord.hpp
+simulation.o: simulation.cpp simulation.hpp termite.hpp grille.hpp coord.hpp
+gui.o: gui.cpp gui.hpp termite.hpp grille.hpp coord.hpp
 
 clean:
-	rm -f projet testgrille testcoord testtermite gui *.o
+	rm -f projet_gui projet testgrille testcoord testtermite gui *.o
 fullClean:
-	rm -f projet testgrille testcoord testtermite gui *.o *.gch
+	rm -f projet_gui projet testgrille testcoord testtermite gui *.o *.gch
 
 # Attention dans la ligne ci-dessus il faut Ã©crire
 # un seul caractÃ¨re de tabulation et pas 8 espaces.

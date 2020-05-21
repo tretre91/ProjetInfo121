@@ -15,6 +15,8 @@ const float DENSITE_BRINDILLE = 0.2;
  **/
 bool tabContient(Coord c, int const& taille, Coord tab[]);
 
+void deplacement(Grille &g, tabTermites &T);
+
 /** Gère les déplacements de tous les termites de la simulation
  * @param [in/out] g: la grille contenant les termites et les brindilles
  * @param [in/out] T: le tableau contenant les termites de la simulation
@@ -53,4 +55,4 @@ int tailleMaxTas(Grille const& g, int const& maxBrindilles, Coord coordTas[]);
  **/
 int initGrille(Grille &g, tabTermites &T);
 
-#endif
+#endif // DEF_AUTRES
