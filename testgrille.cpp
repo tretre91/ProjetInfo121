@@ -5,6 +5,7 @@ using namespace std;
 #define ASSERT(test) if (!(test)) std::cout << "Test failed in file " << __FILE__ \
                                        << " line " << __LINE__ << ": " #test << std::endl
 
+/** Tests de la fonction initialiseGrilleVide **/
 void testInitialiseGrilleVide(){
     Grille g;
     initialiseGrilleVide(g);
@@ -14,6 +15,7 @@ void testInitialiseGrilleVide(){
             ASSERT(estVide(g, {i, j}));
 }
 
+/** Tests des fonctions poseBrindille, enleveBrindille et contientBrindille **/
 void testBrindille(){
     Grille g;
     initialiseGrilleVide(g);
@@ -32,6 +34,7 @@ void testBrindille(){
         }
 }
 
+/** Tests des fonctions poseTermite, enleveTermite et numeroTermite **/
 void testTermite(){
     Grille g;
     initialiseGrilleVide(g);
@@ -51,7 +54,6 @@ void testTermite(){
             ASSERT(estVide(g, {i,j}));
         }
 }
-
 
 
 int main(){

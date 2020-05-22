@@ -7,6 +7,7 @@ using namespace std;
 #define ASSERT(test) if (!(test)) std::cout << "Test failed in file " << __FILE__ \
                                        << " line " << __LINE__ << ": " #test << std::endl
 
+/** Tests de la fonction egalCoord **/
 void testEgalCoord(){
 	int a, b;
 	Coord c1, c2;
@@ -24,6 +25,7 @@ void testEgalCoord(){
 	}
 }
 
+/** Tests de la fonction ADroite **/
 void testADroite(){
     Direction dir;
     Direction init;
@@ -42,6 +44,7 @@ void testADroite(){
     }
 }
 
+/** Tests de la fonction AGauche **/
 void testAGauche(){
     Direction dir;
     Direction init;
@@ -60,6 +63,7 @@ void testAGauche(){
     }
 }
 
+/** Tests de la fonction devantCoord **/
 void testDevantCoord(){
     Coord c = creeCoord(1,2);
     ASSERT(egalCoord(devantCoord(c, N), {0,2}));

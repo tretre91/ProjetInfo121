@@ -4,7 +4,11 @@
 #include <ctime>
 using  namespace std;
 
-void afficheGrille(Grille g, tabTermites T){
+/** Affiche la grille dans le terminal
+ * @param [in] g: la grille contenant les termites et les brindilles
+ * @param [in] T: le tableau contenant les termites de la simulation
+ **/
+void afficheGrille(Grille const& g, tabTermites const& T){
     system("clear");
     for(int i = 0; i < TAILLE; i++){
         for(int j = 0; j < TAILLE; j++){
@@ -26,6 +30,11 @@ void afficheGrille(Grille g, tabTermites T){
     }
 }
 
+/** Gère la simulation
+ * @param [in] g: la grille contenant les termites et les brindilles
+ * @param [in] T: le tableau contenant les termites de la simulation
+ * @return true si on doit redémarrer la simulation, false si on doit la quitter
+ **/
 bool simulation(Grille &g, tabTermites &T){
 	int nbPasse = 1;
 	string a;

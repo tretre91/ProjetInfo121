@@ -13,17 +13,19 @@ bool estPlein(tabTermites T){
 }
 
 void creeTermite(tabTermites &T, Coord c){
-    Termite nouv;
-    nouv.numero = T.taille;
-    nouv.position = c;
-    nouv.direction = Direction(rand()%8);
-    nouv.charge = false;
-	nouv.tournerSurPlace = 0;
-	nouv.avub = 0;
-	nouv.sablier = 0;
-    
-    T.tab[T.taille] = nouv;
-    T.taille++;
+	if(!estPlein(T)){
+		Termite nouv;
+		nouv.numero = T.taille;
+		nouv.position = c;
+		nouv.direction = Direction(rand()%8);
+		nouv.charge = false;
+		nouv.tournerSurPlace = 0;
+		nouv.avub = 0;
+		nouv.sablier = 0;
+		
+		T.tab[T.taille] = nouv;
+		T.taille++;
+	}
 }
 
 
