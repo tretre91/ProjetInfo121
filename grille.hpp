@@ -14,7 +14,6 @@ struct Grille{
 };
 
 
-
 /** Modifie une case pour la rendre vide
  **/
 void initialiseCaseVide(Case &c);

@@ -48,4 +48,13 @@ void rotation(sf::Sprite &s, int angle, int tailleCase);
  **/
 void dessineGrille(Grille const& g, tabTermites T, int tailleCase, sf::RenderWindow &window, sf::Sprite sprites[NB_TEXTURES], sf::Texture textures[NB_TEXTURES]);
 
+/** Crée un indicateur de la vitesse (nombre de déplacements en une passe)
+ * @param [in] vitesse: le nombre de déplacements en une passe
+ * @param [in] police: la police à utiliser pour le texte de l'indicateur
+ * @param [in] hauteurFenetre: la hauteur de la fenêtre (en pixel, sert à aligner le texte) 
+ * @param [in] largeurFenetre: la largeur de le fenêtre (en pixel, sert à aligner le texte)
+ * @return un sf::Text contenant indiquant la "vitesse" de la simulation
+ **/
+sf::Text compteurVitesse(int vitesse, sf::Font const& police, int const hauteurFenetre, int const largeurFenetre);
+
 #endif // DEF_GUI

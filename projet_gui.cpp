@@ -14,23 +14,21 @@ int main(){
 	
 	/* initialisation des grilles et tableaux de la simulation */
 	srand(time(0));
-    tabTermites tabT;
-    tabVide(tabT);
-    Grille g;
+	tabTermites tabT;
+	tabVide(tabT);
+	Grille g;
 	const int maxBrindilles = initGrille(g, tabT);
-    Coord grosTas[maxBrindilles];
-	for(int i = 0; i < maxBrindilles; i++)
-		grosTas[i] = {-1, -1};
+	Coord grosTas[maxBrindilles];
+	initTabTasVide(maxBrindilles, grosTas);
 	
 	/* initialisation des variables nécessiars à l'interaction utilisateur */
 	int nbPasse = 1;
 	bool passeAuto = false;
 	int tailleTas = 0;
-	int maxTailleTas = 0;
-	bool verifTailleTas = false;
 	bool logTailleTas = true;
+	bool connexe = false;
 	
-	/* Génération des autres objets (bordures, déco, boutons ...) */
+	/* Génération des autres objets (bordures, légendes...) */
 	const int hauteurFenetre = tailleCase*TAILLE;
 	const int largeurFenetre = hauteurFenetre + 250;
 	
@@ -42,10 +40,7 @@ int main(){
 	if(!arial.loadFromFile("Ressources/arial.ttf"))
 		cout << "Impossible de charger la police arial.ttf";
 	
-	string const vitesse = "Vitesse : x";
-	sf::Text texteVitesse("", arial, 25);
-	texteVitesse.setString(vitesse + to_string(nbPasse));
-	centrerTexte(texteVitesse, hauteurFenetre, largeurFenetre, 0, hauteurFenetre);
+	sf::Text texteVitesse = compteurVitesse(nbPasse, arial, hauteurFenetre, largeurFenetre);
 	
 	sf::Text texteMode("Mode : Manuel", arial, 25);
 	centrerTexte(texteMode, hauteurFenetre, largeurFenetre, 5, 5);
@@ -53,9 +48,6 @@ int main(){
 	string const t_tailleTas = "Taille du plus \n gros tas : ";
 	sf::Text texteTailleTas("Taille du plus \n gros tas : 0", arial, 25);
 	centrerTexte(texteTailleTas, hauteurFenetre, largeurFenetre, hauteurFenetre - 70, hauteurFenetre - 70);
-	
-	sf::Text texteMaxTailleTas("Max : 0 brindilles", arial, 25);
-	centrerTexte(texteMaxTailleTas, hauteurFenetre, largeurFenetre, hauteurFenetre - 25, hauteurFenetre - 25);
 	
 	/* création de la fenêtre */
 	sf::RenderWindow fenetre(sf::VideoMode(largeurFenetre, hauteurFenetre), "simulation termites");
@@ -75,27 +67,23 @@ int main(){
 						case sf::Keyboard::Q:
 							fenetre.close();
 							break;
-						case sf::Keyboard::Return:
+						case sf::Keyboard::Return: // Il est conseillé d'utiliser Enter au lieu de Return, mais Enter n'existe pas dans version 2.4.2 (celle installée via apt sous linux)
 							if(!passeAuto)
 								for(int i = 0; i < nbPasse; i++){
 									deplacement(g, tabT, maxBrindilles, grosTas);
 									if(logTailleTas){
 										tailleTas = tailleMaxTas(g, maxBrindilles, grosTas);
-										if(tailleTas > maxTailleTas)
-											maxTailleTas = tailleTas;
 									}
 								}
 							break;
 						case sf::Keyboard::Multiply: case sf::Keyboard::Up:
 							nbPasse *= 2;
-							texteVitesse.setString(vitesse + to_string(nbPasse));
-							centrerTexte(texteVitesse, hauteurFenetre, largeurFenetre, 0, hauteurFenetre);
+							texteVitesse = compteurVitesse(nbPasse, arial, hauteurFenetre, largeurFenetre);
 							break;
 						case sf::Keyboard::Slash: case sf::Keyboard::Down:
 							if(nbPasse > 1){
 								nbPasse /= 2;
-								texteVitesse.setString(vitesse + to_string(nbPasse));
-								centrerTexte(texteVitesse, hauteurFenetre, largeurFenetre, 0, hauteurFenetre);
+								texteVitesse = compteurVitesse(nbPasse, arial, hauteurFenetre, largeurFenetre);
 							}
 							break;
 						case sf::Keyboard::A:
@@ -106,21 +94,16 @@ int main(){
 								texteMode.setString("Mode : Manuel");
 							centrerTexte(texteMode, hauteurFenetre, largeurFenetre, 5, 5);
 							break;
-						case sf::Keyboard::M:
-							verifTailleTas = !verifTailleTas;
-							break;
 						case sf::Keyboard::L:
 							logTailleTas = !logTailleTas;
 							break;
 						case sf::Keyboard::C:
-							tabVide(tabT);
-							initGrille(g, tabT);
-							nbPasse = 1;
-							passeAuto = false;
-							tailleTas = 0;
-							maxTailleTas = 0;
-							texteVitesse.setString(vitesse + to_string(nbPasse));
-							centrerTexte(texteVitesse, hauteurFenetre, largeurFenetre, 0, hauteurFenetre);
+							connexe = !connexe;
+							if(connexe){
+								if(!logTailleTas) logTailleTas = true;
+							} else {
+								initTabTasVide(maxBrindilles, grosTas);
+							}
 							break;
 						default: break;
 					}
@@ -131,11 +114,12 @@ int main(){
 		
 		if(passeAuto)
 			for(int i = 0; i < nbPasse; i++){
-				deplacement(g, tabT, maxBrindilles, grosTas);
+				if(connexe)
+					deplacement(g, tabT, maxBrindilles, grosTas);
+				else
+					deplacement(g, tabT);
 				if(logTailleTas){
 					tailleTas = tailleMaxTas(g, maxBrindilles, grosTas);
-					if(tailleTas > maxTailleTas)
-						maxTailleTas = tailleTas;
 				}
 			}
 		
@@ -144,12 +128,8 @@ int main(){
 		fenetre.draw(texteVitesse);
 		fenetre.draw(texteMode);
 		if(logTailleTas){
-			texteMaxTailleTas.setString("Max : " + to_string(maxTailleTas) + " brindilles");
-			fenetre.draw(texteMaxTailleTas);
-			if(verifTailleTas){
-				texteTailleTas.setString(t_tailleTas + to_string(tailleTas));
-				fenetre.draw(texteTailleTas);
-			}
+			texteTailleTas.setString(t_tailleTas + to_string(tailleTas));
+			fenetre.draw(texteTailleTas);
 		}
 		
 		fenetre.display();

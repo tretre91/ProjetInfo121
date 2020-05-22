@@ -37,8 +37,6 @@ gui.o: gui.cpp gui.hpp termite.hpp grille.hpp coord.hpp
 
 clean:
 	rm -f projet_gui projet testgrille testcoord testtermite gui *.o
-fullClean:
-	rm -f projet_gui projet testgrille testcoord testtermite gui *.o *.gch
 
 # Attention dans la ligne ci-dessus il faut Ã©crire
 # un seul caractÃ¨re de tabulation et pas 8 espaces.

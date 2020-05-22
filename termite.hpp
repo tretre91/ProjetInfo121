@@ -10,6 +10,7 @@ struct Termite{
     Direction direction;
     bool charge;
 	int tournerSurPlace;
+	int avub;
 	int sablier;
 };
 
@@ -105,30 +106,63 @@ bool pasEnferme(Grille g, Termite t);
 
 /** Permet de faire avancer un termite sur la case en face de lui
  * @param [in/out] g: la grille contenant les termites et les brindilles
- * @param [in/out] t le termite à faire avancer
+ * @param [in/out] t: le termite à faire avancer
  **/
 void avanceTermite(Grille &g, Termite &t);
 
 /** Permet a un termite qui porte une brindille de la déposer (la case devant lui est supposée vide)
  * @param [in/out] g: la grille contenant les termites et les brindilles
- * @param [in/out] t le termite que l'on souhaite débarrasser de sa brindille
+ * @param [in/out] t: le termite que l'on souhaite débarrasser de sa brindille
  **/
 void dechargeTermite(Grille &g, Termite &t);
 
 /** Permet a un termite de rammasser une brindille (la case devant lui est supposée en contenir une)
  * @param [in/out] g: la grille contenant les termites et les brindilles
- * @param [in/out] t le termite que l'on souhaite charger
+ * @param [in/out] t: le termite que l'on souhaite charger
  **/
 void chargeTermite(Grille &g, Termite &t);
 
 /** Permet de déplacer aléatoirement le termite
  * @param [in/out] g: la grille contenant les termites et les brindilles
- * @param [in/out] t le termite que l'on souhaite déplacer
+ * @param [in/out] t: le termite que l'on souhaite déplacer
  **/
 void marcheAleatoire(Grille &g, Termite &t);
 
+/** Décremente le sablier d'un termite
+ * @param [in/out] t: un termite
+ **/
 void modifierSablier(Termite &t);
 
+/** indique la valeur du sablier d'un termite
+ * @param [in] t: un termite
+ * @return le sablier de t
+ **/
 int sablier(Termite t);
+
+/** initialise le sablier de dépôt de brindille d'un termite si il est face
+ *  à une brindille et qu'il est chargé
+ * @param [in] g: la grille contenant les termites et les brindilles
+ * @param [in/out] t: un termite chargé
+ **/
+void VoitBrindille(Grille g, Termite &t);
+
+/** Décremente le sablier de dépôt de brindille d'un termite
+ * @param [in/out] t: un termite
+ **/
+void modifierAvub(Termite &t);
+
+/** Indique si le termite a vu une brindille, (ce qui implique qu'il doit lâcher
+ *  la brindille qu'il porte sur une case adjacente dans le cas ou il est chargé)
+ * @param [in] t: un termite
+ * @return true si le termite a vu une brindille
+ **/
+bool aVuBrindille(Termite t);
+
+/** fait tourner un termite sur lui mème en plusieurs tours
+ * @param [in] g: la grille contenant les termites et les brindilles
+ * @param [in/out] t: le termite que l'on souhaite faire tourner
+ * @return true si le termite doit tourner sur place, false sinon
+ **/
+bool tourneSurPlace(Grille g, Termite &t);
 
 #endif // DEF_TERMITE

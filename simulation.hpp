@@ -4,10 +4,10 @@
 #include "termite.hpp"
 #include <vector>
 
-const float DENSITE_TERMITE = 0.25;
-const float DENSITE_BRINDILLE = 0.2;
+const float DENSITE_TERMITE = 0.20;
+const float DENSITE_BRINDILLE = 0.15;
 
-/** indique si un tableau contient un élément particulier
+/** indique si un tableau de Coord contient un élément particulier
  * @param [in] c: la coordonnée recherchée
  * @param [in] taille: la taille du tbleau dans lequel on effectue la recherche
  * @param [in] tab: le tableau où l'on cherche la coordonnée c
@@ -15,9 +15,15 @@ const float DENSITE_BRINDILLE = 0.2;
  **/
 bool tabContient(Coord c, int const& taille, Coord tab[]);
 
+/** Gère les déplacements de tous les termites de la simulation
+ * @param [in/out] g: la grille contenant les termites et les brindilles
+ * @param [in/out] T: le tableau contenant les termites de la simulation
+ **/
 void deplacement(Grille &g, tabTermites &T);
 
-/** Gère les déplacements de tous les termites de la simulation
+/** Version de la fonction de déplacmenent permettant de garder la connexité
+ *  du tas de brindilles composé des brindilles dont les coordonnées sont dans
+ *  coordTas 
  * @param [in/out] g: la grille contenant les termites et les brindilles
  * @param [in/out] T: le tableau contenant les termites de la simulation
  * @param [in] nbBrindilles: le nombre total de brindilles dans la grille
@@ -54,5 +60,12 @@ int tailleMaxTas(Grille const& g, int const& maxBrindilles, Coord coordTas[]);
  * @return le nombre total de brindilles de la grille
  **/
 int initGrille(Grille &g, tabTermites &T);
+
+/** initialise le tableau qui contiendra les coordonnées des brindilles
+ ** appartenant au plus gros tas
+ * @param [in] taille: la taille du tableau (qui est égale au nombre total de brindilles)
+ * @param [out] tabTas: le tableau initialisé à vide
+ **/
+void initTabTasVide(int const taille, Coord tabTas[]);
 
 #endif // DEF_AUTRES

@@ -19,6 +19,7 @@ void creeTermite(tabTermites &T, Coord c){
     nouv.direction = Direction(rand()%8);
     nouv.charge = false;
 	nouv.tournerSurPlace = 0;
+	nouv.avub = 0;
 	nouv.sablier = 0;
     
     T.tab[T.taille] = nouv;
@@ -91,17 +92,13 @@ void chargeTermite(Grille &g, Termite &t){
 }
 
 void marcheAleatoire(Grille &g, Termite &t){
-    int d = rand()%10;
+	if(tourneSurPlace(g, t))
+		return;
+	int d = rand()%10;
     if(d > 0 && laVoieEstLibre(g, t))
         avanceTermite(g, t);
-    else{
-		if(t.tournerSurPlace){
-			tourneADroite(t);
-			t.tournerSurPlace--;
-		}
-		else
-			tourneAleat(t);
-	}
+    else
+		tourneAleat(t);
 }
 
 void modifierSablier(Termite &t){
@@ -111,4 +108,40 @@ void modifierSablier(Termite &t){
 
 int sablier(Termite t){
 	return t.sablier;
+}
+
+void VoitBrindille(Grille g, Termite &t){
+	if(brindilleEnFace(g,t) && t.sablier == 0)
+		t.avub = 3;
+}
+
+void modifierAvub(Termite &t){
+	if(t.avub > 0){
+		t.avub--;
+	}
+}
+
+bool aVuBrindille(Termite t){
+	return t.avub != 0;
+}
+
+bool tourneSurPlace(Grille g, Termite &t){
+	bool res = false;
+	if(t.tournerSurPlace == 0 && murEnFace(g, t)){
+		int d = rand()%2;
+        t.tournerSurPlace = rand()%2 + 4;
+		if(d == 0)
+			t.tournerSurPlace *= -1;
+	}
+	if(t.tournerSurPlace != 0){
+		if(t.tournerSurPlace > 0){
+			tourneADroite(t);
+			t.tournerSurPlace--;
+		} else {
+			tourneAGauche(t);
+			t.tournerSurPlace++;
+		}
+		res = true;
+	}
+	return res;
 }
