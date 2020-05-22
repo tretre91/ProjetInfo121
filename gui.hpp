@@ -57,4 +57,15 @@ void dessineGrille(Grille const& g, tabTermites T, int tailleCase, sf::RenderWin
  **/
 sf::Text compteurVitesse(int vitesse, sf::Font const& police, int const hauteurFenetre, int const largeurFenetre);
 
+/** gère la simulation
+ * @param [in] tabTextures: le tableau de sf::Texture qui contient toutes les textures
+ * @param [in] tabSprites: le tableau de sf::Sprites contenant les sprites associées aux textures
+ * @param [in] tailleCase: la taille d'une case dans la grille graphique
+ * @param [in] hauteurFenetre: la hauteur de la fenêtre (en pixel, sert à aligner le texte)
+ * @param [in] largeurFenetre: la largeur de le fenêtre (en pixel, sert à aligner le texte)
+ * @param [in] fenetre: la fenêtre où seront affichés le différents éléments
+ * @return true si on doit recommencer la simulation, false si on doit arrêter
+ **/
+bool simulation(sf::Texture tabTextures[NB_TEXTURES], sf::Sprite tabSprites[NB_TEXTURES], const int tailleCase, const int hauteurFenetre, const int largeurFenetre, sf::RenderWindow &fenetre);
+
 #endif // DEF_GUI

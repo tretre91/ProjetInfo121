@@ -1,16 +1,27 @@
 #include "coord.hpp"
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 using namespace std;
 
 #define ASSERT(test) if (!(test)) std::cout << "Test failed in file " << __FILE__ \
                                        << " line " << __LINE__ << ": " #test << std::endl
 
 void testEgalCoord(){
-    Coord c1 = creeCoord(1,2);
-    Coord c2 = creeCoord(1,2);
-    
-    ASSERT(egalCoord(c1,c2));
-    ASSERT(egalCoord(c1,{1,2}));
+	int a, b;
+	Coord c1, c2;
+	for(int i = 0; i < 1000; i++){
+		a = rand();
+			if(a < 0) a *= -1;
+		b = rand();
+			if(b < 0) b *= -1;
+		c1 = creeCoord(a,b);
+		c2 = creeCoord(a,b);
+		
+		ASSERT(egalCoord(c1,c2));
+		ASSERT(egalCoord(c1,{a,b}));
+		ASSERT(egalCoord({a,b}, c2));
+	}
 }
 
 void testADroite(){

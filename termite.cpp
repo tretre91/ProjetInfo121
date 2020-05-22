@@ -129,7 +129,7 @@ bool tourneSurPlace(Grille g, Termite &t){
 	bool res = false;
 	if(t.tournerSurPlace == 0 && murEnFace(g, t)){
 		int d = rand()%2;
-        t.tournerSurPlace = rand()%2 + 4;
+        t.tournerSurPlace = rand()%2 + 3;
 		if(d == 0)
 			t.tournerSurPlace *= -1;
 	}

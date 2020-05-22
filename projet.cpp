@@ -1,6 +1,7 @@
 #include "simulation.hpp"
 #include <iostream>
 #include <cstdlib>
+#include <ctime>
 using  namespace std;
 
 void afficheGrille(Grille g, tabTermites T){
@@ -25,11 +26,12 @@ void afficheGrille(Grille g, tabTermites T){
     }
 }
 
-void simulation(Grille &g, tabTermites &T){
+bool simulation(Grille &g, tabTermites &T){
 	int nbPasse = 1;
 	string a;
 	bool passe;
 	
+	tabVide(T);
 	const int maxBrindilles = initGrille(g, T);
 	afficheGrille(g, T);
     Coord grosTas[maxBrindilles];
@@ -42,10 +44,11 @@ void simulation(Grille &g, tabTermites &T){
 		getline(cin, a);
 		for(char i: a)
 		switch(i){
-			case 'q': return;
+			case 'q': return false;
 			case '*': nbPasse *= 2; passe = false; break;
 			case '/': if(nbPasse > 1) nbPasse /= 2; passe = false; break;
 			case 'c': connexe = !connexe; passe = false; break;
+			case 'r': return true;
 			default: break;
 		}
 		
@@ -67,8 +70,7 @@ void simulation(Grille &g, tabTermites &T){
 int main(){
     srand(time(0));
     tabTermites tabT;
-    tabVide(tabT);
     Grille g;
-    simulation(g, tabT);
+    while(simulation(g, tabT)){}
     return 0;
 }
