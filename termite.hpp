@@ -5,18 +5,18 @@
 #include <cstdlib>
 
 struct Termite{
-    int numero;
-    Coord position;
-    Direction direction;
-    bool charge;
+	int numero;
+	Coord position;
+	Direction direction;
+	bool charge;
 	int tournerSurPlace;
 	int avub;
 	int sablier;
 };
 
 struct tabTermites{
-    Termite tab[(TAILLE*TAILLE)/10];
-    int taille;
+	Termite tab[(TAILLE*TAILLE)/10];
+	int taille;
 };
 
 /** Déclare un tableau de termites comme étant vide

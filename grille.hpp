@@ -6,11 +6,11 @@
 const int TAILLE = 20;
 
 struct Case{
-    int contenu; // -2 pour une brindille, -1 pour une case vide, un nombre >0 pour un termite
+	int contenu; // -2 pour une brindille, -1 pour une case vide, un nombre >0 pour un termite
 };
 
 struct Grille{
-    Case t[TAILLE][TAILLE];
+	Case t[TAILLE][TAILLE];
 };
 
 

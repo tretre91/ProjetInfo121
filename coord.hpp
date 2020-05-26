@@ -2,7 +2,7 @@
 #define DEF_COORD
 
 struct Coord{
-    int ligne, colonne;
+	int ligne, colonne;
 };
 
 enum Direction {NO, N, NE, E, SE, S, SO, O};

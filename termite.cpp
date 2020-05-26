@@ -1,15 +1,15 @@
 #include "termite.hpp"
 
 void tabVide(tabTermites &T){
-    T.taille = 0;
+	T.taille = 0;
 }
 
 int tailleTableau(tabTermites T){
-    return T.taille;
+	return T.taille;
 }
 
 bool estPlein(tabTermites T){
-    return T.taille == (TAILLE*TAILLE)/10;
+	return T.taille == (TAILLE*TAILLE)/10;
 }
 
 void creeTermite(tabTermites &T, Coord c){
@@ -30,35 +30,35 @@ void creeTermite(tabTermites &T, Coord c){
 
 
 Direction directionTermite(Termite t){
-    return t.direction;
+	return t.direction;
 }
 
 Coord devantTermite(Termite t){
-    return devantCoord(t.position, t.direction);
+	return devantCoord(t.position, t.direction);
 }
 
 bool porteBrindille(Termite t){
-    return t.charge;
+	return t.charge;
 }
 
 void tourneADroite(Termite &t){
-    t.direction = aDroite(t.direction);
+	t.direction = aDroite(t.direction);
 }
 
 void tourneAGauche(Termite &t){
-    t.direction = aGauche(t.direction);
+	t.direction = aGauche(t.direction);
 }
 
 void tourneAleat(Termite &t){
-    t.direction = Direction(rand()%8);
+	t.direction = Direction(rand()%8);
 }
 
 bool laVoieEstLibre(Grille g, Termite t){
-    return dansGrille(g, devantTermite(t)) && estVide(g, devantTermite(t));
+	return dansGrille(g, devantTermite(t)) && estVide(g, devantTermite(t));
 }
 
 bool brindilleEnFace(Grille g, Termite t){
-    return contientBrindille(g, devantTermite(t));
+	return contientBrindille(g, devantTermite(t));
 }
 
 bool murEnFace(Grille g, Termite t){
@@ -66,30 +66,30 @@ bool murEnFace(Grille g, Termite t){
 }
 
 bool pasEnferme(Grille g, Termite t){
-    int casesVides = 0;
-    for(int i = 0; i < 8; i++){
-        tourneADroite(t);
-        if(laVoieEstLibre(g, t))
-            casesVides++;
-    }
-    return casesVides >= 2;
+	int casesVides = 0;
+	for(int i = 0; i < 8; i++){
+		tourneADroite(t);
+		if(laVoieEstLibre(g, t))
+			casesVides++;
+	}
+	return casesVides >= 2;
 }
 
 void avanceTermite(Grille &g, Termite &t){
-    poseTermite(g, devantTermite(t), t.numero);
-    enleveTermite(g, t.position);
-    t.position = devantTermite(t);
+	poseTermite(g, devantTermite(t), t.numero);
+	enleveTermite(g, t.position);
+	t.position = devantTermite(t);
 }
 
 void dechargeTermite(Grille &g, Termite &t){
-    poseBrindille(g, devantTermite(t));
-    t.charge = false;
+	poseBrindille(g, devantTermite(t));
+	t.charge = false;
 	t.sablier = 6;
 }
 
 void chargeTermite(Grille &g, Termite &t){
-    enleveBrindille(g, devantTermite(t));
-    t.charge = true;
+	enleveBrindille(g, devantTermite(t));
+	t.charge = true;
 	t.sablier = 6;
 }
 
@@ -97,9 +97,9 @@ void marcheAleatoire(Grille &g, Termite &t){
 	if(tourneSurPlace(g, t))
 		return;
 	int d = rand()%10;
-    if(d > 0 && laVoieEstLibre(g, t))
-        avanceTermite(g, t);
-    else
+	if(d > 0 && laVoieEstLibre(g, t))
+		avanceTermite(g, t);
+	else
 		tourneAleat(t);
 }
 
@@ -131,7 +131,7 @@ bool tourneSurPlace(Grille g, Termite &t){
 	bool res = false;
 	if(t.tournerSurPlace == 0 && murEnFace(g, t)){
 		int d = rand()%2;
-        t.tournerSurPlace = rand()%2 + 3;
+		t.tournerSurPlace = rand()%2 + 3;
 		if(d == 0)
 			t.tournerSurPlace *= -1;
 	}
