@@ -29,7 +29,7 @@ void testTabTermites(){
 }
 
 /** Tests des fonctions du type Termite **/
-void TestTermite(){
+void testTermite(){
 	Grille g;
     initialiseGrilleVide(g);
     int x, y;
@@ -70,5 +70,6 @@ void TestTermite(){
 int main(){
     srand(time(0));
     testTabTermites();
+	testTermite();
     return 0;
 }
